@@ -1,0 +1,4 @@
+import {inr} from '@/lib/finance';
+export default function ForecastBreakdownTable({rows,note}:{rows?:{label:string;amount:number;kind:string}[]|null;note?:string}){
+ return <section className="rounded-2xl border border-border bg-card p-5 space-y-4"><h2 className="text-xl font-semibold">Where the numbers come from</h2><div className="overflow-x-auto"><table className="w-full text-sm"><thead><tr className="text-left text-muted-foreground"><th className="p-3">Record</th><th className="p-3">Movement</th><th className="p-3 text-right">Amount</th></tr></thead><tbody>{(rows??[]).map((r,i)=><tr key={i} className="border-t border-border"><td className="p-3">{r.label}</td><td className="p-3">{r.kind.replaceAll('_',' ')}</td><td className="p-3 text-right whitespace-nowrap tabular-nums">{['actual_payment','unpaid_bill'].includes(r.kind)?'−':''}{inr(r.amount)}</td></tr>)}</tbody></table></div>{note&&<p className="text-sm text-muted-foreground">{note}</p>}</section>;
+}

@@ -1,0 +1,16 @@
+{
+  "prdHash": "641d3ced79bc491fe5e3ae3de1bf0191d12b0416",
+  "generatedAt": "2026-11-22T12:07:09.090Z",
+  "agent_type": "brand-preview-html",
+  "style": "playful",
+  "designSpec": {
+    "layout_archetype": "Hero with feature grid, priority list and CTA band",
+    "nav_pattern": "Sticky top bar with pill-shaped section links",
+    "surface": "Card surfaces on a warm background with a bordered top bar",
+    "card_treatment": "Rounded cards with 1px border and soft shadow",
+    "density": "Airy, generous section spacing",
+    "elevation": "Soft layered shadows on cards and primary CTAs",
+    "radius_language": "Large rounded cards and fully pill-shaped buttons and badges",
+    "signature_motifs": "Tilted sticker callout, pill tags, rounded progress bar, icon tiles"
+  }
+}

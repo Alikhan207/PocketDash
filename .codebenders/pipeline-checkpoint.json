@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "turnId": "resume-1795352701658",
+  "phaseId": "generate",
+  "mode": "greenfield",
+  "currentStage": "backend-guide:generate",
+  "completedStages": [],
+  "status": "cancelled",
+  "fingerprint": {
+    "prdHash": "0b68ba6db04c8f26e36407121f256255bf31039434b2a43ca2ca61e29d045fab",
+    "stackHash": "0525f1bfc451ada3d148002c4f79bfd68e163fc3dc142c7874e27f535883d045",
+    "manifestHash": "",
+    "workspaceRoot": "d:\\Desktop\\PocketDash"
+  },
+  "startedAt": "2026-11-22T13:05:01.693Z",
+  "updatedAt": "2026-11-22T13:15:01.789Z",
+  "pipelineStateLog": [],
+  "heartbeatAt": "2026-11-22T13:15:01.789Z",
+  "autoResumes": 0,
+  "cancelledAt": "2026-11-22T13:15:12.776Z"
+}

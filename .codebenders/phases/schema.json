@@ -1,0 +1,703 @@
+{
+  "orm": "prisma",
+  "models": [
+    {
+      "name": "users",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": false,
+          "pk": true
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "updated_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "clerk_user_id",
+          "type": "string",
+          "nullable": false,
+          "unique": true
+        },
+        {
+          "name": "is_demo",
+          "type": "boolean",
+          "nullable": false,
+          "default": "false"
+        },
+        {
+          "name": "last_signed_in_at",
+          "type": "datetime",
+          "nullable": true
+        },
+        {
+          "name": "last_signed_out_at",
+          "type": "datetime",
+          "nullable": true
+        },
+        {
+          "name": "deleted_at",
+          "type": "DateTime",
+          "nullable": true
+        }
+      ],
+      "persona_access": {
+        "Seller": "read_own"
+      }
+    },
+    {
+      "name": "shops",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": false,
+          "pk": true
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "updated_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "nullable": false,
+          "unique": true,
+          "fk": "users.id"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "address",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "opening_cash_balance",
+          "type": "decimal",
+          "nullable": true
+        },
+        {
+          "name": "opening_balance_effective_date",
+          "type": "date",
+          "nullable": true
+        }
+      ],
+      "persona_access": {
+        "Seller": "read_write_own"
+      }
+    },
+    {
+      "name": "customers",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": false,
+          "pk": true
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "updated_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "shop_id",
+          "type": "uuid",
+          "nullable": false,
+          "fk": "shops.id"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "phone",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "nullable": true
+        }
+      ],
+      "persona_access": {
+        "Seller": "read_write_own"
+      }
+    },
+    {
+      "name": "saved_items",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": false,
+          "pk": true
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "updated_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "shop_id",
+          "type": "uuid",
+          "nullable": false,
+          "fk": "shops.id"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "unit_price",
+          "type": "decimal",
+          "nullable": false
+        }
+      ],
+      "persona_access": {
+        "Seller": "read_write_own"
+      }
+    },
+    {
+      "name": "invoices",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": false,
+          "pk": true
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "updated_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "shop_id",
+          "type": "uuid",
+          "nullable": false,
+          "fk": "shops.id"
+        },
+        {
+          "name": "customer_id",
+          "type": "uuid",
+          "nullable": false,
+          "fk": "customers.id"
+        },
+        {
+          "name": "invoice_number",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "enum(draft|unpaid|partially_paid|paid|cancelled)",
+          "nullable": false,
+          "default": "draft"
+        },
+        {
+          "name": "issue_date",
+          "type": "date",
+          "nullable": false
+        },
+        {
+          "name": "due_date",
+          "type": "date",
+          "nullable": false
+        },
+        {
+          "name": "expected_collection_date",
+          "type": "date",
+          "nullable": true
+        },
+        {
+          "name": "total_amount",
+          "type": "decimal",
+          "nullable": false,
+          "default": "0"
+        },
+        {
+          "name": "notes",
+          "type": "text",
+          "nullable": true
+        }
+      ],
+      "persona_access": {
+        "Seller": "read_write_own"
+      }
+    },
+    {
+      "name": "invoice_items",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": false,
+          "pk": true
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "updated_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "invoice_id",
+          "type": "uuid",
+          "nullable": false,
+          "fk": "invoices.id"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "quantity",
+          "type": "int",
+          "nullable": false
+        },
+        {
+          "name": "unit_price",
+          "type": "decimal",
+          "nullable": false
+        },
+        {
+          "name": "line_total",
+          "type": "decimal",
+          "nullable": false
+        }
+      ],
+      "persona_access": {
+        "Seller": "read_write_own"
+      }
+    },
+    {
+      "name": "payments",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": false,
+          "pk": true
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "updated_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "invoice_id",
+          "type": "uuid",
+          "nullable": false,
+          "fk": "invoices.id"
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "nullable": false
+        },
+        {
+          "name": "paid_on",
+          "type": "date",
+          "nullable": false
+        },
+        {
+          "name": "method",
+          "type": "enum(cash|upi|bank_transfer|card|other)",
+          "nullable": false
+        },
+        {
+          "name": "kind",
+          "type": "enum(advance|partial|final)",
+          "nullable": false
+        },
+        {
+          "name": "verification_status",
+          "type": "enum(seller_recorded)",
+          "nullable": false,
+          "default": "seller_recorded"
+        },
+        {
+          "name": "idempotency_key",
+          "type": "string",
+          "nullable": false
+        }
+      ],
+      "persona_access": {
+        "Seller": "read_write_own"
+      }
+    },
+    {
+      "name": "follow_ups",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": false,
+          "pk": true
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "updated_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "invoice_id",
+          "type": "uuid",
+          "nullable": false,
+          "fk": "invoices.id"
+        },
+        {
+          "name": "body",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "enum(draft|sent)",
+          "nullable": false,
+          "default": "draft"
+        },
+        {
+          "name": "channel",
+          "type": "enum(whatsapp|copied|other)",
+          "nullable": true
+        },
+        {
+          "name": "sent_at",
+          "type": "datetime",
+          "nullable": true
+        }
+      ],
+      "persona_access": {
+        "Seller": "read_write_own"
+      }
+    },
+    {
+      "name": "expenses",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": false,
+          "pk": true
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "updated_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "shop_id",
+          "type": "uuid",
+          "nullable": false,
+          "fk": "shops.id"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "category",
+          "type": "enum(blank_t_shirts|printing|yarn|packaging|delivery|other)",
+          "nullable": false
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "nullable": false
+        },
+        {
+          "name": "due_date",
+          "type": "date",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "enum(unpaid|paid)",
+          "nullable": false,
+          "default": "unpaid"
+        },
+        {
+          "name": "paid_on",
+          "type": "date",
+          "nullable": true
+        },
+        {
+          "name": "revised_payment_date",
+          "type": "date",
+          "nullable": true
+        }
+      ],
+      "persona_access": {
+        "Seller": "read_write_own"
+      }
+    },
+    {
+      "name": "alerts",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": false,
+          "pk": true
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "updated_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "shop_id",
+          "type": "uuid",
+          "nullable": false,
+          "fk": "shops.id"
+        },
+        {
+          "name": "alert_type",
+          "type": "enum(overdue_invoice|upcoming_bill|cash_shortage|overdue_no_expected_date)",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "enum(active|resolved)",
+          "nullable": false,
+          "default": "active"
+        },
+        {
+          "name": "invoice_id",
+          "type": "uuid",
+          "nullable": true,
+          "fk": "invoices.id"
+        },
+        {
+          "name": "expense_id",
+          "type": "uuid",
+          "nullable": true,
+          "fk": "expenses.id"
+        },
+        {
+          "name": "shortage_date",
+          "type": "date",
+          "nullable": true
+        },
+        {
+          "name": "shortage_amount",
+          "type": "decimal",
+          "nullable": true
+        },
+        {
+          "name": "message",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "action_taken_at",
+          "type": "datetime",
+          "nullable": true
+        },
+        {
+          "name": "resolved_at",
+          "type": "datetime",
+          "nullable": true
+        }
+      ],
+      "persona_access": {
+        "Seller": "read_write_own"
+      }
+    },
+    {
+      "name": "scenarios",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "nullable": false,
+          "pk": true
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "updated_at",
+          "type": "datetime",
+          "nullable": false,
+          "default": "now"
+        },
+        {
+          "name": "shop_id",
+          "type": "uuid",
+          "nullable": false,
+          "fk": "shops.id"
+        },
+        {
+          "name": "invoice_id",
+          "type": "uuid",
+          "nullable": false,
+          "fk": "invoices.id"
+        },
+        {
+          "name": "status",
+          "type": "enum(active|reset)",
+          "nullable": false,
+          "default": "active"
+        },
+        {
+          "name": "delay_days",
+          "type": "int",
+          "nullable": false,
+          "default": "15"
+        },
+        {
+          "name": "forecast_days",
+          "type": "int",
+          "nullable": false,
+          "default": "30"
+        },
+        {
+          "name": "scenario_expected_collection_date",
+          "type": "date",
+          "nullable": true
+        },
+        {
+          "name": "baseline_min_cash",
+          "type": "decimal",
+          "nullable": true
+        },
+        {
+          "name": "scenario_min_cash",
+          "type": "decimal",
+          "nullable": true
+        },
+        {
+          "name": "baseline_first_shortage_date",
+          "type": "date",
+          "nullable": true
+        },
+        {
+          "name": "scenario_first_shortage_date",
+          "type": "date",
+          "nullable": true
+        },
+        {
+          "name": "shortage_amount",
+          "type": "decimal",
+          "nullable": true
+        },
+        {
+          "name": "suggested_action",
+          "type": "text",
+          "nullable": true
+        }
+      ],
+      "persona_access": {
+        "Seller": "read_write_own"
+      }
+    }
+  ]
+}

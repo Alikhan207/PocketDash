@@ -1,0 +1,2 @@
+import {NextResponse} from 'next/server';import {requireUser} from '@/lib/session';import {forecastFor} from '@/lib/finance-data';
+export async function GET(request:Request){const u=await requireUser(request);if(u instanceof Response)return u;try{return NextResponse.json({invoices:(await forecastFor(u.id)).unscheduled});}catch{return NextResponse.json({error:'Could not load invoices.'},{status:500});}}

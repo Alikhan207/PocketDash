@@ -1,0 +1,202 @@
+{
+  "pages": [
+    {
+      "name": "Today",
+      "route": "/",
+      "description": "Shows who to follow up with today, which bills are coming, and any cash alerts. Also on this screen: When account setup is incomplete, show an error banner with a Retry setup button that calls POST /api/auth/register and reloads the shop context from GET /api/auth/me. Also on this screen: When the seller opens a follow-up draft, an upcoming bill or a cash alert from the lists, call POST /api/alerts/{alertId}/action-taken for that alert and refresh GET /api/alerts. Also on this screen: When the seller opens a follow-up draft, an upcoming bill or a cash alert, call POST /api/alerts/{alertId}/action-taken (not POST /api/alert) so action_taken_at is recorded; the alert stays active until its record changes. Also on this screen: When the seller opens a follow-up draft, an upcoming bill or a cash alert from the lists, call POST /api/alerts/{alertId}/action-taken for that alert so action_taken_at is recorded.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "see today's follow-ups, upcoming bills and cash alerts"
+      }
+    },
+    {
+      "name": "Login",
+      "route": "/login",
+      "description": "Lets the seller sign in with email and password to reach their private records. Also on this screen: After Clerk sign-in succeeds, call POST /api/auth/login to link the session and record last_signed_in_at, then open Today using the returned profile.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "sign in to the app"
+      }
+    },
+    {
+      "name": "Sign Up",
+      "route": "/signup",
+      "description": "Lets anyone create a seller account to keep their private business records. Also on this screen: After Clerk account creation succeeds, call POST /api/auth/register, then GET /api/auth/me to load the shop context before opening Today; show an error with retry if registration fails.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "create an account"
+      }
+    },
+    {
+      "name": "Forgot Password",
+      "route": "/forgot-password",
+      "description": "Lets the seller request a password reset link by email.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "request a reset link by email"
+      }
+    },
+    {
+      "name": "Reset Password",
+      "route": "/reset-password",
+      "description": "Lets the seller set a new password from the emailed reset link.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "set a new password from the emailed link"
+      }
+    },
+    {
+      "name": "Profile",
+      "route": "/profile",
+      "description": "Shows the seller's own name, email and password settings and lets them sign out. Also on this screen: Sign out calls POST /api/auth/logout to end the app session and records last_signed_out_at, then returns the seller to /login. Also on this screen: Add an account details form for name and email, saved via PATCH /api/auth/me with the email lowercased and duplicates refused, and a Change password action that calls POST /api/auth/change-password, showing the result and asking the seller to sign in again.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "change name, email or password, and sign out"
+      }
+    },
+    {
+      "name": "Customers",
+      "route": "/customers",
+      "description": "Lists saved customers with their outstanding balances so they can be found and browsed.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "find and browse customers and their balances"
+      }
+    },
+    {
+      "name": "Customer Detail",
+      "route": "/customers/[id]",
+      "description": "Shows one customer's invoices, payment history and outstanding balance, with editing of their details. Also on this screen: Add a Delete customer action that calls DELETE /api/customers/{customerId}, shows the 409 message when the customer has invoices, and returns to /customers on success.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "edit customer details and review invoices, payments and balance"
+      }
+    },
+    {
+      "name": "New Customer",
+      "route": "/customers/new",
+      "description": "Lets the seller add a customer with a name and an optional phone number or email.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "add a customer with name and optional phone or email"
+      }
+    },
+    {
+      "name": "Invoices",
+      "route": "/invoices",
+      "description": "Lists invoices with search and sort, separating overdue invoices from those not yet due.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "search and sort invoices and see what is owed"
+      }
+    },
+    {
+      "name": "Invoice Detail",
+      "route": "/invoices/[id]",
+      "description": "Shows one invoice with its preview, status and balance, where payments are recorded and reminders are drafted. Also on this screen: Show an editable items table for draft or unpaid invoices with no payments: add an item via POST /api/invoices/{invoiceId}/items, edit description, quantity or unit price via PATCH /api/invoices/{invoiceId}/items/{itemId}, and remove a line via DELETE /api/invoices/{invoiceId}/items/{itemId}, with totals refreshed from the invoice response. Also on this screen: Add action buttons: Issue invoice (POST /api/invoices/{invoiceId}/issue) for drafts, Cancel invoice (POST /api/invoices/{invoiceId}/cancel) for draft or unpaid invoices, Delete draft (DELETE /api/invoices/{invoiceId}) for drafts, and an edit form for issue date, due date, notes, customer and expected collection date saved via PATCH /api/invoices/{invoiceId}. Also on this screen: In the reminder section, add a Discard draft action on draft follow-ups that calls DELETE /api/follow-ups/{followUpId}; sent follow-ups show no discard action. Also on this screen: In the Payments section, add a Remove action on each payment row that calls DELETE /api/payments/{paymentId} after confirmation, then refreshes the balance from GET /api/invoices/{invoiceId}. Also on this screen: Add an 'Issue invoice' action for drafts that calls POST /api/invoices/{invoiceId}/issue and shows the assigned invoice number; add a 'Cancel invoice' action for draft or unpaid invoices that calls POST /api/invoices/{invoiceId}/cancel; add a 'Delete draft' action for drafts that calls DELETE /api/invoices/{invoiceId} and returns to /invoices. Also on this screen: In the Payments section, add a 'Remove payment' action on each seller-recorded payment that calls DELETE /api/payments/{paymentId} after confirmation, then reloads the balance and status from GET /api/invoices/{invoiceId}. Also on this screen: In the Reminder section, add a 'Discard draft' action on draft (not sent) follow-ups that calls DELETE /api/follow-ups/{followUpId} and removes it from the list fetched by GET /api/invoices/{invoiceId}/follow-ups. Also on this screen: Add an edit form for due date, notes and customer on draft and unpaid invoices that calls PATCH /api/invoices/{invoiceId}, showing the server's refusal when the invoice already has payments. Also on this screen: Load the customer list from GET /api/customers for the customer field in the edit form before saving through PATCH /api/invoices/{invoiceId}. Also on this screen: The payment form generates one idempotency_key per submission, sends it with POST /api/invoices/{invoiceId}/payments, and disables the submit button while the request is in progress. Also on this screen: Add Issue invoice (POST /api/invoices/{invoiceId}/issue) for drafts, Cancel invoice (POST /api/invoices/{invoiceId}/cancel) for drafts and unpaid invoices, and Delete draft (DELETE /api/invoices/{invoiceId}) for drafts; add editable issue date, due date and notes saved via PATCH /api/invoices/{invoiceId}. Show the server's refusal message on 409 or validation errors. Also on this screen: Add a Reverse action on each row of the Payments section that calls DELETE /api/payments/{paymentId} after confirmation, then reloads the balance and status from GET /api/invoices/{invoiceId} and the payment list from GET /api/invoices/{invoiceId}/payments. Also on this screen: Add a Delete draft action on each draft in the Reminder section that calls DELETE /api/follow-ups/{followUpId} after confirmation and refreshes GET /api/invoices/{invoiceId}/follow-ups; hide the action for sent follow-ups. Also on this screen: Add an Issue invoice action for drafts (POST /api/invoices/{invoiceId}/issue), a Cancel invoice action for unpaid invoices (POST /api/invoices/{invoiceId}/cancel, shows its refusal when payments exist), and a Delete draft action (DELETE /api/invoices/{invoiceId}, shows the 409 for issued invoices). Also on this screen: Add an editable issue date, due date, notes and customer section saved via PATCH /api/invoices/{invoiceId}, showing the refusal when the invoice already has payments. Also on this screen: Add a Delete action on each payment row in the payments section, after confirmation, calling DELETE /api/payments/{paymentId} and refreshing the balance and status. Also on this screen: Add a Discard action on each unsent reminder draft in the reminders section, calling DELETE /api/follow-ups/{followUpId}; sent follow-ups show no discard action. Also on this screen: In the reminders section, the 'Record a follow-up sent' action asks for the channel (WhatsApp, copied or other) and saves it with POST /api/follow-ups/{followUpId}/mark-sent. Also on this screen: For a draft, add an 'Issue invoice' action that calls POST /api/invoices/{invoiceId}/issue and a 'Delete draft' action that calls DELETE /api/invoices/{invoiceId}. For a draft or unpaid invoice, add a 'Cancel invoice' action that calls POST /api/invoices/{invoiceId}/cancel and shows its refusal when a payment exists. Also on this screen: Add editable issue date, due date, notes and customer fields that save through PATCH /api/invoices/{invoiceId}, with the server's refusal shown when the invoice already has payments. Also on this screen: In the Payments section, add a 'Reverse payment' action on each recorded payment that calls DELETE /api/payments/{paymentId} after confirmation and refreshes the balance and status. Also on this screen: In the Reminder section, add a Delete draft action on each unsent reminder draft that calls DELETE /api/follow-ups/{followUpId} after confirmation and refreshes the list; sent follow-ups show no delete action.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "preview and print, record advances and payments, draft and copy reminders, record follow-ups sent"
+      }
+    },
+    {
+      "name": "New Invoice",
+      "route": "/invoices/new",
+      "description": "Lets the seller create an itemised invoice for an existing or new customer, reusing saved item details. Also on this screen: Add a Save as reusable item option on each typed item line that calls POST /api/saved-items with its description and unit price. Also on this screen: In the Customer section, add an inline new-customer form (name, optional phone or email) that calls POST /api/customers and selects the created customer for the invoice without leaving the page. Also on this screen: Load the customer list from GET /api/customers for the customer picker and the saved item list from GET /api/saved-items for choosing item details on each line.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "create an itemised invoice from saved customers and item details"
+      }
+    },
+    {
+      "name": "Collections",
+      "route": "/collections",
+      "description": "Lists outstanding invoices searched and sorted by overdue amount and days overdue, with reminder and follow-up actions. Also on this screen: The 'Record a follow-up sent' action asks for the channel (WhatsApp, copied or other) and saves it with POST /api/follow-ups/{followUpId}/mark-sent.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "work overdue invoices by amount and days overdue, set expected collection dates, draft reminders"
+      }
+    },
+    {
+      "name": "Expenses",
+      "route": "/expenses",
+      "description": "Lists upcoming bills by category and due date and shows which are overdue. Also on this screen: Add a Set revised date action on overdue bill rows using POST /api/expenses/{expenseId}/revised-payment-date.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "review upcoming and overdue bills by category and due date"
+      }
+    },
+    {
+      "name": "Expense Detail",
+      "route": "/expenses/[id]",
+      "description": "Shows one bill with its details, where it can be edited and marked as paid. Also on this screen: Add a revised payment date field for unpaid bills, saved via POST /api/expenses/{expenseId}/revised-payment-date, with the original due date still shown. Also on this screen: Add a Delete bill action for unpaid bills that calls DELETE /api/expenses/{expenseId} and returns to /expenses, with the server refusal shown for paid bills.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "edit a bill and record when it is paid"
+      }
+    },
+    {
+      "name": "New Expense",
+      "route": "/expenses/new",
+      "description": "Lets the seller add an upcoming bill with description, category, amount and due date.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "add a bill with description, category, amount and due date"
+      }
+    },
+    {
+      "name": "Cash Forecast",
+      "route": "/cash-forecast",
+      "description": "Shows 30-, 60- and 90-day cash projections with a chart, breakdown, first shortage and a what-if delay against baseline. Also on this screen: In the what-if panel, when a scenario is active, let the seller change the selected invoice or delay_days and see the recalculated comparison via PATCH /api/scenarios/{scenarioId} and GET /api/scenarios/{scenarioId}. Also on this screen: Load the Unscheduled overdue invoices section from GET /api/invoices?filter=overdue, showing only invoices with no expected_collection_date, each with a Set date action that calls PATCH /api/invoices/{invoiceId}. Also on this screen: On load, call GET /api/scenarios?status=active; if one exists, show its selected invoice and delay with its comparison from GET /api/scenarios/{scenarioId}, otherwise show the create form. Also on this screen: On load, call GET /api/scenarios filtered to status active; if one exists, show its comparison through GET /api/scenarios/{scenarioId} in the what-if panel with its Reset action. Also on this screen: Load the Unscheduled overdue invoices section from GET /api/cash-forecast/unscheduled, and let the seller set an expected collection date on each row with PATCH /api/invoices/{invoiceId}, which then moves it into the dated forecast. Also on this screen: On load, call GET /api/scenarios for the active scenario and, if one exists, fetch GET /api/scenarios/{scenarioId} and show its comparison in the what-if panel with the Reset action available.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "review forecasts, set expected collection dates, run or reset a what-if delay"
+      }
+    },
+    {
+      "name": "Settings",
+      "route": "/settings",
+      "description": "Lets the seller set shop details and the opening cash balance with its effective date. Also on this screen: Add a Saved items section listing items from GET /api/saved-items, with edit via PATCH /api/saved-items/{savedItemId} and remove via DELETE /api/saved-items/{savedItemId}.",
+      "personas": [
+        "Seller"
+      ],
+      "uses": {
+        "Seller": "set shop details and the opening cash balance"
+      }
+    }
+  ]
+}

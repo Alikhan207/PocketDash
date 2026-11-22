@@ -1,0 +1,114 @@
+{
+  "prdHash": "641d3ced79bc491fe5e3ae3de1bf0191d12b0416",
+  "brief": "",
+  "alternatives": [
+    {
+      "id": "yarn-ledger",
+      "label": "Yarn Ledger",
+      "colors": {
+        "primary": "#B5573A",
+        "secondary": "#8C3B1F",
+        "accent": "#D9A441",
+        "bg": "#F6EFE3",
+        "surface": "#FBF7F0",
+        "text": "#3B2A20",
+        "muted": "#7D6B5D",
+        "success": "#4F6B3A",
+        "danger": "#A8272B"
+      },
+      "typography": {
+        "font_family": "Nunito, tabular-nums for all rupee amounts",
+        "font_family_heading": "Fraunces, semibold",
+        "font_family_mono": "Nunito with font-variant-numeric: tabular-nums"
+      },
+      "spacing": {
+        "base": "4px"
+      },
+      "radius": {
+        "base": "8px"
+      },
+      "reason": "The warm cream paper, terracotta and rust accents, and deep brown ink echo a hand-kept craft ledger, so the seller's money records feel like a personal notebook rather than a generic finance dashboard."
+    },
+    {
+      "id": "monsoon-cashbook",
+      "label": "Monsoon Cashbook",
+      "colors": {
+        "primary": "#2F4858",
+        "secondary": "#5B7083",
+        "accent": "#3A6EA5",
+        "bg": "#EEF2F5",
+        "surface": "#FFFFFF",
+        "text": "#1E2A36",
+        "muted": "#5E6F7F",
+        "success": "#2E7D5B",
+        "danger": "#D9480F"
+      },
+      "typography": {
+        "font_family": "Barlow Semi Condensed",
+        "font_family_heading": "Barlow Semi Condensed",
+        "font_family_mono": "IBM Plex Mono"
+      },
+      "spacing": {
+        "base": "4px"
+      },
+      "radius": {
+        "base": "8px"
+      },
+      "reason": "Ink-blue and slate neutrals on a cool grey ground give a sober bank-statement clarity, with the signal orange danger tone reserved strictly for overdue and shortage states so those warnings are the only warm colour on screen."
+    },
+    {
+      "id": "screenprint-stall",
+      "label": "Screenprint Stall",
+      "colors": {
+        "primary": "#0F5257",
+        "secondary": "#F5B700",
+        "accent": "#E8591A",
+        "bg": "#FFFBF2",
+        "surface": "#FFFFFF",
+        "text": "#0B2F32",
+        "muted": "#5B6F70",
+        "success": "#1B7F4B",
+        "danger": "#C81D25"
+      },
+      "typography": {
+        "font_family": "Inter",
+        "font_family_heading": "Bricolage Grotesque",
+        "font_family_mono": "JetBrains Mono"
+      },
+      "spacing": {
+        "base": "4px"
+      },
+      "radius": {
+        "base": "8px"
+      },
+      "reason": "Marigold, deep teal and off-white borrowed from a market-stall screenprint table give the seller a loud, high-contrast working tool where chunky headlines, flat status chips and clear rupee figures read quickly on a phone."
+    },
+    {
+      "id": "late-night-ledger",
+      "label": "Late Night Ledger",
+      "colors": {
+        "primary": "#A99BD4",
+        "secondary": "#6F6382",
+        "accent": "#D9A45B",
+        "bg": "#1B1721",
+        "surface": "#2A2432",
+        "text": "#E4DDEE",
+        "muted": "#9B91AD",
+        "success": "#8DB59A",
+        "danger": "#C96B7E"
+      },
+      "typography": {
+        "font_family": "Manrope, system-ui, sans-serif",
+        "font_family_heading": "Outfit, sans-serif",
+        "font_family_mono": "JetBrains Mono, ui-monospace, monospace"
+      },
+      "spacing": {
+        "base": "4px"
+      },
+      "radius": {
+        "base": "8px"
+      },
+      "reason": "A low-glare aubergine-charcoal dark theme with lavender text keeps evening reconciliation calm, while amber is reserved for overdue money so urgent balances stand out without alarming the rest of the screen."
+    }
+  ]
+}

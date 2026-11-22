@@ -1,0 +1,79 @@
+# PocketDash
+> A back-office web app that helps a student running a small T-shirt and crochet gifts business track who owes money, follow up on late payments, and see whether cash will last.
+
+## Overview
+PocketDash is a mobile-friendly working back office for a college student who runs a small personalised T-shirt and crochet gifts business, alone or with a helper. Orders come in through WhatsApp and Instagram, customers pay advances or pay late, and the seller must buy materials, pay printers, and cover packaging and delivery. It exists so the seller can see who owes money, which payments to chase today, which bills are coming, and whether there will be enough cash over the next 30, 60 and 90 days.
+
+## Target Users
+- **Seller**: creates customers and itemised invoices, records advances and payments, follows up on overdue invoices, adds upcoming bills, sets the opening cash balance, and reviews cash forecasts and what-if scenarios.
+- **Helper**: works with the seller in running the business alongside them.
+
+## Core Capabilities
+- Create and edit customers with a name and an optional phone number or email.
+- View each customer's invoices, payment history and outstanding balance.
+- Reuse existing customers when creating an invoice, and reuse saved item details to save typing.
+- Create itemised invoices with a unique invoice number, customer, issue date, payment due date, item description, quantity, unit price, automatically calculated total and optional notes.
+- Add printed T-shirts, crochet gifts and delivery charges as items on one invoice.
+- Preview an invoice in a readable layout and print it or save it as PDF.
+- Record advances, partial payments and final payments, each with amount, date and payment method.
+- See the outstanding balance as invoice total minus recorded payments, shown the same way everywhere.
+- See unpaid, partially paid and paid status, with overdue status shown separately whenever an unpaid balance remains after the due date.
+- Keep draft and cancelled invoices out of receivables and forecasts.
+- Understand that creating an invoice does not increase cash, and that delivery does not mean payment.
+- See manual payment records labelled as seller-recorded, not bank-verified.
+- Be prevented from entering invalid amounts, overpayments and duplicate payment submissions.
+- Search and sort a collections list showing customer, invoice number, outstanding amount, due date, days overdue and last follow-up.
+- Keep overdue invoices separate from invoices not yet due, and prioritise them by outstanding amount and days overdue, including when five customers are late at once.
+- Generate editable reminder drafts using the actual invoice details.
+- Copy a reminder, or open a WhatsApp draft when the customer has a phone number; the seller reviews and sends it themselves.
+- Record that a follow-up was sent. Opening or copying a draft does not mark it as sent.
+- Add upcoming bills with description, category (blank T-shirts, printing, yarn, packaging, delivery, other), amount and due date.
+- Record when a bill is paid.
+- Set an opening cash balance with an effective date, so transactions already included in it are not counted again.
+- Derive available cash from the opening balance plus later actual receipts and payments, while keeping actual cash, unpaid invoices and planned expenses separate, labelled as based on entered records.
+- View 30-, 60- and 90-day cash forecasts with a chart and a readable breakdown: current available cash, plus expected invoice collections, minus upcoming unpaid expenses.
+- Use only each invoice's outstanding balance in the forecast, with an editable expected collection date that starts at the due date.
+- Request an expected collection date for overdue invoices; until one is set, show them separately as unscheduled and leave them out of the dated forecast.
+- Flag overdue unpaid bills for immediate attention and explain how they are treated in the forecast.
+- See the assumptions behind a forecast, the first projected shortage date and amount, and a clear note that expected collections are estimates.
+- Select an outstanding invoice, delay its expected collection by an editable number of days (default 15), and compare the baseline and scenario on the same forecast, including changes to minimum cash and shortage dates.
+- Reset a what-if scenario to the baseline without changing any saved records; scenarios stay separate from business records.
+- Receive alerts linked to records: overdue invoice (draft reminder), upcoming supplier bill (review bill), projected cash shortage (review affected collections and bills), and overdue invoice without an expected collection date (set expected date).
+- Have alerts resolve or update when the underlying records change, without contacting customers or changing payment dates automatically.
+- Set shop details and the opening cash balance in a small settings area.
+- Use Indian rupee formatting, Asia/Kolkata dates for due dates and overdue calculations, and clear status labels.
+- See empty, loading, success and error states on every screen.
+- Keep records after refreshes and application restarts.
+
+## Out of Scope
+- Public marketplace
+- Buyer checkout
+- Bank integrations
+- Automated WhatsApp sending
+- Full inventory management
+- Tax filing
+- AI-generated financial predictions
+
+## Key Pages / Screens
+- **Today** (`/`): see who to follow up with today, what bills are coming, and any cash alerts.
+- **Customers** (`/customers`): find and browse saved customers and their balances.
+- **Customer Detail** (`/customers/[id]`): view or edit a customer, with their invoices, payment history and outstanding balance.
+- **New Customer** (`/customers/new`): add a customer with a name and optional phone or email.
+- **Invoices** (`/invoices`): search and sort invoices, with overdue invoices separated from those not yet due, to see what is owed.
+- **Invoice Detail** (`/invoices/[id]`): preview and print an invoice, record payments, see its status and balance, draft and copy a reminder, and record a sent follow-up.
+- **New Invoice** (`/invoices/new`): create an itemised invoice for an existing or new customer, reusing saved item details.
+- **Expenses** (`/expenses`): see upcoming bills by category and due date, and which are overdue.
+- **Expense Detail** (`/expenses/[id]`): view or edit a bill and record when it is paid.
+- **New Expense** (`/expenses/new`): add an upcoming bill with description, category, amount and due date.
+- **Cash Forecast** (`/cash-forecast`): view 30-, 60- and 90-day projections with a chart and breakdown, first shortage date and amount, and run or reset a what-if delay on one invoice against the baseline.
+- **Settings** (`/settings`): set shop details and the opening cash balance with its effective date.
+
+## Technical Constraints
+- Built from scratch within Codebenders.
+- Deployed as a working web link, with a public repository.
+- Requirements tracked in PRD.md; milestones and handover recorded in PROGRESS.md.
+- Dates use the Asia/Kolkata calendar consistently for due dates and overdue calculations.
+- Amounts use Indian rupee formatting.
+- Records must persist across refreshes and application restarts.
+- Private records must be protected; any public judge demo must be isolated and populated only with fictional data.
+- Must work on a mobile-sized screen.

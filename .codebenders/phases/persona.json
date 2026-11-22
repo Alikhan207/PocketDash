@@ -1,0 +1,29 @@
+{
+  "personas": [
+    {
+      "persona_id": "P-62565D",
+      "name": "Seller",
+      "short_description": "Runs the T-shirt and crochet gifts business: invoices, payments, follow-ups, bills and cash checks.",
+      "key_responsibilities": [
+        "Create and edit customers and reuse them on new invoices",
+        "Create itemised invoices from saved item details, then preview, print or save as PDF",
+        "Record advances, partial payments and final payments with amount, date and method",
+        "Work the collections list by overdue amount and days overdue, then draft, copy or open reminders and record follow-ups sent",
+        "Add upcoming bills, record when they are paid, and set the opening cash balance",
+        "Review 30-, 60- and 90-day cash forecasts, set expected collection dates, and run or reset a what-if delay"
+      ],
+      "frictions": [
+        "Advances and part-payments noted in WhatsApp or a notebook get forgotten, so balances are wrong when chasing",
+        "Retyping the same customer and item details for every invoice takes time between classes",
+        "Late balances are chased from memory, with no clear order of which customer to contact first"
+      ],
+      "devices": "mobile",
+      "instructions": [
+        "Design for one-handed phone use with large tap targets and minimal typing",
+        "Use pickers for saved customers and items so the seller rarely types them again",
+        "Show amounts in ₹ with Indian digit grouping and plain labels such as 'Still to pay' rather than accounting terms",
+        "Put the single next action on each screen, such as 'Send reminder' on an overdue invoice, and keep optional invoice fields collapsed"
+      ]
+    }
+  ]
+}

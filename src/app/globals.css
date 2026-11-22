@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+ :root {--background:250 20% 8%;--foreground:252 20% 94%;--card:252 17% 12%;--card-foreground:252 20% 94%;--popover:252 17% 14%;--popover-foreground:252 20% 94%;--primary:254 83% 78%;--primary-foreground:252 42% 12%;--secondary:254 16% 23%;--secondary-foreground:252 20% 94%;--muted:252 16% 18%;--muted-foreground:252 12% 70%;--accent:34 88% 69%;--accent-foreground:252 42% 12%;--destructive:0 88% 75%;--destructive-foreground:252 20% 10%;--border:252 14% 25%;--input:252 14% 30%;--ring:254 83% 78%;--radius:1rem;--success:#7dd8bd;--danger:#ffa6a6;}
+ * {@apply border-border;box-sizing:border-box;}
+ body {@apply bg-background text-foreground; font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.6;margin:0;}
+ h1,h2,h3 {line-height:1.25;letter-spacing:-.025em;} button,input,select,textarea {font:inherit;} button,a,input,select,textarea {touch-action:manipulation;} button {cursor:pointer;} button:disabled {cursor:wait;opacity:.5;} input,select,textarea {color-scheme:dark;max-width:100%;} :focus-visible{outline:2px solid hsl(var(--primary));outline-offset:3px;} .flex-1,.grow,.grid>*{min-width:0;}
+}
+.text-xs{font-size:.875rem;line-height:1.45;} .text-sm{font-size:.9375rem;} input:not([type=checkbox]):not([type=radio]),select{min-height:44px;} table{border-collapse:collapse;} a,button{transition:background-color .15s,color .15s;} th{font-weight:500;} textarea{min-height:100px;} .ui-container{max-width:1152px;margin:auto;padding:24px;}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
+@media print {
+ body *{visibility:hidden!important;} #print-invoice,#print-invoice *{visibility:visible!important;color:#111!important;background:white!important;border-color:#ddd!important;}
+ #print-invoice{position:absolute;left:0;top:0;width:100%;max-width:none;box-shadow:none!important;padding:16px!important;}
+ #print-invoice tr{break-inside:avoid;} @page{size:A4;margin:15mm;}
+}

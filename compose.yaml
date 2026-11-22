@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: pocketdash
+      POSTGRES_USER: pocketdash
+      POSTGRES_PASSWORD: pocketdash_local
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pocketdash_data:/var/lib/postgresql/data
+volumes:
+  pocketdash_data:

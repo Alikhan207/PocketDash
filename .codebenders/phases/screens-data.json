@@ -1,0 +1,416 @@
+{
+  "version": 1,
+  "data": {
+    "currency": "INR",
+    "today": "2026-11-22",
+    "collections": {
+      "users": [
+        {
+          "id": "u1",
+          "name": "Ananya Iyer",
+          "email": "ananya.iyer@gmail.com",
+          "persona": "Seller"
+        },
+        {
+          "id": "u2",
+          "name": "Karthik Sundaram",
+          "email": "karthik.sundaram@gmail.com",
+          "persona": "Seller"
+        }
+      ],
+      "shop_settings": [
+        {
+          "id": "s1",
+          "user_id": "u1",
+          "shop_name": "Pocket Pattern Studio",
+          "city": "Chennai",
+          "opening_cash_amount": 12000,
+          "opening_cash_date": "2026-11-01"
+        }
+      ],
+      "customers": [
+        {
+          "id": "c1",
+          "user_id": "u1",
+          "name": "Meera Krishnan",
+          "phone": "+91 98410 55321",
+          "email": null
+        },
+        {
+          "id": "c2",
+          "user_id": "u1",
+          "name": "Arjun Rao",
+          "phone": "+91 90032 18764",
+          "email": null
+        },
+        {
+          "id": "c3",
+          "user_id": "u1",
+          "name": "Priya Nair",
+          "phone": "+91 99400 27183",
+          "email": "priya.nair.design@gmail.com"
+        },
+        {
+          "id": "c4",
+          "user_id": "u1",
+          "name": "Sneha Goyal",
+          "phone": null,
+          "email": "sneha.goyal@outlook.com"
+        },
+        {
+          "id": "c5",
+          "user_id": "u1",
+          "name": "Dev Iyengar",
+          "phone": "+91 97900 63420",
+          "email": null
+        }
+      ],
+      "item_details": [
+        {
+          "id": "d1",
+          "user_id": "u1",
+          "description": "Printed cotton tee",
+          "unit_price": 450
+        },
+        {
+          "id": "d2",
+          "user_id": "u1",
+          "description": "Crochet bouquet",
+          "unit_price": 650
+        },
+        {
+          "id": "d3",
+          "user_id": "u1",
+          "description": "Crochet keychain",
+          "unit_price": 120
+        },
+        {
+          "id": "d4",
+          "user_id": "u1",
+          "description": "Delivery",
+          "unit_price": 100
+        }
+      ],
+      "invoices": [
+        {
+          "id": "i1",
+          "user_id": "u1",
+          "customer_id": "c3",
+          "invoice_number": "PD-1041",
+          "status": "issued",
+          "issue_date": "2026-10-05",
+          "due_date": "2026-10-19",
+          "expected_collection_date": null,
+          "notes": "Family set, delivered to Chennai"
+        },
+        {
+          "id": "i2",
+          "user_id": "u1",
+          "customer_id": "c1",
+          "invoice_number": "PD-1048",
+          "status": "issued",
+          "issue_date": "2026-10-12",
+          "due_date": "2026-10-26",
+          "expected_collection_date": null,
+          "notes": "Gift bouquets for a birthday"
+        },
+        {
+          "id": "i3",
+          "user_id": "u1",
+          "customer_id": "c2",
+          "invoice_number": "PD-1052",
+          "status": "issued",
+          "issue_date": "2026-10-20",
+          "due_date": "2026-11-03",
+          "expected_collection_date": null,
+          "notes": "Custom team tees, back print included"
+        },
+        {
+          "id": "i4",
+          "user_id": "u1",
+          "customer_id": "c5",
+          "invoice_number": "PD-1056",
+          "status": "issued",
+          "issue_date": "2026-11-01",
+          "due_date": "2026-11-15",
+          "expected_collection_date": "2026-12-02",
+          "notes": "Keychains for a college fest"
+        },
+        {
+          "id": "i5",
+          "user_id": "u1",
+          "customer_id": "c4",
+          "invoice_number": "PD-1059",
+          "status": "issued",
+          "issue_date": "2026-11-08",
+          "due_date": "2026-11-22",
+          "expected_collection_date": null,
+          "notes": null
+        },
+        {
+          "id": "i6",
+          "user_id": "u1",
+          "customer_id": "c3",
+          "invoice_number": "PD-1062",
+          "status": "issued",
+          "issue_date": "2026-11-14",
+          "due_date": "2026-11-28",
+          "expected_collection_date": null,
+          "notes": "Team jerseys, advance received"
+        },
+        {
+          "id": "i7",
+          "user_id": "u1",
+          "customer_id": "c3",
+          "invoice_number": "PD-1063",
+          "status": "cancelled",
+          "issue_date": "2026-11-03",
+          "due_date": "2026-11-17",
+          "expected_collection_date": null,
+          "notes": "Customer changed the order"
+        },
+        {
+          "id": "i8",
+          "user_id": "u1",
+          "customer_id": "c4",
+          "invoice_number": "PD-1066",
+          "status": "draft",
+          "issue_date": "2026-11-21",
+          "due_date": "2026-12-05",
+          "expected_collection_date": null,
+          "notes": null
+        }
+      ],
+      "invoice_items": [
+        {
+          "id": "ii1",
+          "invoice_id": "i1",
+          "description": "Printed cotton tee",
+          "quantity": 6,
+          "unit_price": 450
+        },
+        {
+          "id": "ii2",
+          "invoice_id": "i1",
+          "description": "Delivery",
+          "quantity": 1,
+          "unit_price": 80
+        },
+        {
+          "id": "ii3",
+          "invoice_id": "i2",
+          "description": "Crochet bouquet",
+          "quantity": 3,
+          "unit_price": 650
+        },
+        {
+          "id": "ii4",
+          "invoice_id": "i3",
+          "description": "Custom printed tee",
+          "quantity": 10,
+          "unit_price": 380
+        },
+        {
+          "id": "ii5",
+          "invoice_id": "i4",
+          "description": "Crochet keychain",
+          "quantity": 20,
+          "unit_price": 120
+        },
+        {
+          "id": "ii6",
+          "invoice_id": "i4",
+          "description": "Delivery",
+          "quantity": 1,
+          "unit_price": 100
+        },
+        {
+          "id": "ii7",
+          "invoice_id": "i5",
+          "description": "Printed tote-bag tee",
+          "quantity": 5,
+          "unit_price": 290
+        },
+        {
+          "id": "ii8",
+          "invoice_id": "i6",
+          "description": "Printed team jersey",
+          "quantity": 8,
+          "unit_price": 550
+        },
+        {
+          "id": "ii9",
+          "invoice_id": "i7",
+          "description": "Crochet baby set",
+          "quantity": 1,
+          "unit_price": 1200
+        },
+        {
+          "id": "ii10",
+          "invoice_id": "i8",
+          "description": "Crochet bouquet",
+          "quantity": 2,
+          "unit_price": 650
+        }
+      ],
+      "payments": [
+        {
+          "id": "p1",
+          "invoice_id": "i1",
+          "amount": 1000,
+          "paid_on": "2026-10-05",
+          "method": "upi",
+          "kind": "advance"
+        },
+        {
+          "id": "p2",
+          "invoice_id": "i1",
+          "amount": 1780,
+          "paid_on": "2026-10-30",
+          "method": "upi",
+          "kind": "final"
+        },
+        {
+          "id": "p3",
+          "invoice_id": "i2",
+          "amount": 500,
+          "paid_on": "2026-10-14",
+          "method": "cash",
+          "kind": "advance"
+        },
+        {
+          "id": "p4",
+          "invoice_id": "i3",
+          "amount": 1500,
+          "paid_on": "2026-10-22",
+          "method": "bank_transfer",
+          "kind": "advance"
+        },
+        {
+          "id": "p5",
+          "invoice_id": "i6",
+          "amount": 2000,
+          "paid_on": "2026-11-14",
+          "method": "upi",
+          "kind": "advance"
+        }
+      ],
+      "follow_ups": [
+        {
+          "id": "f1",
+          "invoice_id": "i2",
+          "sent_on": "2026-11-10",
+          "channel": "whatsapp"
+        },
+        {
+          "id": "f2",
+          "invoice_id": "i2",
+          "sent_on": "2026-11-18",
+          "channel": "whatsapp"
+        },
+        {
+          "id": "f3",
+          "invoice_id": "i4",
+          "sent_on": "2026-11-16",
+          "channel": "whatsapp"
+        }
+      ],
+      "bills": [
+        {
+          "id": "b1",
+          "user_id": "u1",
+          "description": "Blank tees, 50 pack from Tiruppur supplier",
+          "category": "blank_tshirts",
+          "amount": 6200,
+          "due_date": "2026-11-12",
+          "status": "unpaid",
+          "paid_on": null
+        },
+        {
+          "id": "b2",
+          "user_id": "u1",
+          "description": "Screen printing, Ravi Prints November batch",
+          "category": "printing",
+          "amount": 2400,
+          "due_date": "2026-11-20",
+          "status": "unpaid",
+          "paid_on": null
+        },
+        {
+          "id": "b3",
+          "user_id": "u1",
+          "description": "Cotton yarn, 10 skeins",
+          "category": "yarn",
+          "amount": 1350,
+          "due_date": "2026-11-22",
+          "status": "unpaid",
+          "paid_on": null
+        },
+        {
+          "id": "b4",
+          "user_id": "u1",
+          "description": "Poly mailers and packing tape",
+          "category": "packaging",
+          "amount": 680,
+          "due_date": "2026-11-25",
+          "status": "unpaid",
+          "paid_on": null
+        },
+        {
+          "id": "b5",
+          "user_id": "u1",
+          "description": "Weekly courier pickup",
+          "category": "delivery",
+          "amount": 900,
+          "due_date": "2026-11-28",
+          "status": "unpaid",
+          "paid_on": null
+        },
+        {
+          "id": "b6",
+          "user_id": "u1",
+          "description": "Blank tees, Diwali restock",
+          "category": "blank_tshirts",
+          "amount": 4800,
+          "due_date": "2026-11-05",
+          "status": "paid",
+          "paid_on": "2026-11-04"
+        },
+        {
+          "id": "b7",
+          "user_id": "u1",
+          "description": "Instagram ad boost for gift range",
+          "category": "other",
+          "amount": 500,
+          "due_date": "2026-12-03",
+          "status": "unpaid",
+          "paid_on": null
+        }
+      ]
+    },
+    "viewers": {
+      "Seller": "u1"
+    }
+  },
+  "covers": {
+    "/": "aac845bfbbd27ee3",
+    "/login": "ab807faba918ff62",
+    "/signup": "9d3a08d74961e575",
+    "/forgot-password": "0d0ba056bb915a31",
+    "/reset-password": "8e3476f07891cd65",
+    "/profile": "af2677c26fa9b12b",
+    "/customers": "315ecf6dd5086ccb",
+    "/customers/{}": "aba162b6a8fdf067",
+    "/customers/new": "5cf5ca00c142c14f",
+    "/invoices": "72866b7b27b05503",
+    "/invoices/{}": "ae99effa2adccdaa",
+    "/invoices/new": "1a649a96a072e08f",
+    "/collections": "d81ed56210840eaa",
+    "/expenses": "84e84c6598166864",
+    "/expenses/{}": "0011108b386feb4a",
+    "/expenses/new": "76fa4f45710eb2a3",
+    "/cash-forecast": "1e16605a38f7e393",
+    "/settings": "728e689d04865102"
+  },
+  "at": "2026-11-22T12:10:54.267Z"
+}

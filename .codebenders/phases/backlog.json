@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "bl-mwruk6c9-5",
+      "title": "Expected collection date cannot be set on partly paid invoices",
+      "detail": "The Unscheduled and Collections lists include partly paid overdue invoices and set expected_collection_date through PATCH /api/invoices/{invoiceId}, but that endpoint refuses date changes on any invoice with payments. Decide whether expected_collection_date is exempt from that refusal.",
+      "step": "",
+      "source": "user",
+      "priority": "medium",
+      "effort": "M",
+      "tokens": 120058,
+      "status": "open",
+      "note": "The only changed file is next-env.d.ts, a generated Next.js type reference file with no bearing on the PATCH /api/invoices/[invoiceId] handler; no change exempts expected_collection_date from the payment-based date refusal, so the item is not built."
+    },
+    {
+      "id": "bl-mwruk9th-6",
+      "title": "Today text still names a non-existent endpoint",
+      "detail": "The Today screen text still says the seller's actions call POST /api/alert, which is not defined. The correct endpoint POST /api/alerts/{alertId}/action-taken is now named in a separate line, so the stray reference must be removed from the Today text.",
+      "step": "",
+      "source": "user",
+      "priority": "medium",
+      "effort": "M",
+      "tokens": 120059,
+      "status": "open"
+    },
+    {
+      "id": "bl-mwrukat6-7",
+      "title": "Public demo account has no entry point",
+      "detail": "users.is_demo exists, but no screen or endpoint creates or opens a fictional demo account, while the PRD requires any public demo to be isolated and filled only with fictional data. Decide whether to drop the column or build a demo entry point.",
+      "step": "",
+      "source": "user",
+      "priority": "medium",
+      "effort": "M",
+      "tokens": 120063,
+      "status": "open"
+    },
+    {
+      "id": "bl-mwrukc9n-8",
+      "title": "Who sets the invoice number",
+      "detail": "New Invoice asks the seller to enter the invoice number, but POST /api/invoices assigns a unique invoice_number on the server, and the issue endpoint assigns one when it is missing. Decide whether the seller types the number or the server assigns it.",
+      "step": "",
+      "source": "user",
+      "priority": "medium",
+      "effort": "M",
+      "tokens": 120061,
+      "status": "open"
+    },
+    {
+      "id": "bl-mwrvdvad-9",
+      "title": "Add a line item to an existing draft or unpaid invoice",
+      "detail": "The POST items endpoint exists, but no screen reaches it, so a seller cannot add a T-shirt, gift or delivery charge after the invoice is created. The PRD asks to \"Add printed T-shirts, crochet gifts and delivery charges as items on one invoice.\"",
+      "step": "pages",
+      "source": "build",
+      "priority": "medium",
+      "effort": "S",
+      "tokens": 22570,
+      "status": "open"
+    },
+    {
+      "id": "bl-mwrvdvad-a",
+      "title": "Edit a line item on a draft or unpaid invoice",
+      "detail": "The PATCH item endpoint exists, but no screen reaches it, so a seller cannot correct a description, quantity or unit price on an invoice. The plan's Invoice Detail screen calls for an editable items table.",
+      "step": "pages",
+      "source": "build",
+      "priority": "medium",
+      "effort": "S",
+      "tokens": 22558,
+      "status": "open"
+    },
+    {
+      "id": "bl-mwrvdvad-b",
+      "title": "Remove a line item from a draft or unpaid invoice",
+      "detail": "The DELETE item endpoint exists, but no screen reaches it, so a line entered by mistake cannot be removed. The PRD requires invoices to be correct before payments are recorded.",
+      "step": "pages",
+      "source": "build",
+      "priority": "medium",
+      "effort": "S",
+      "tokens": 22552,
+      "status": "open"
+    },
+    {
+      "id": "bl-mwrvdvad-c",
+      "title": "Reverse a payment recorded by mistake",
+      "detail": "The DELETE payment endpoint exists, but no screen reaches it, so a wrongly entered advance or payment stays on the invoice. The PRD asks to be prevented from entering invalid amounts, and a mistaken receipt would otherwise distort the balance and forecast.",
+      "step": "pages",
+      "source": "build",
+      "priority": "medium",
+      "effort": "S",
+      "tokens": 22562,
+      "status": "open"
+    }
+  ],
+  "leftOut": {
+    "at": "2026-11-22T12:42:31.092Z",
+    "items": [],
+    "deferred": []
+  },
+  "builtScanAt": "2026-11-22T13:25:46.789Z"
+}

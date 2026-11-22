@@ -1,0 +1,772 @@
+{
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "handler": "auth-1",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "group": "Auth",
+      "request_shape": "",
+      "response_shape": "{user: User, shop: Shop}",
+      "description": "Creates the seller's private User and Shop records for a Clerk-verified account on the Sign Up screen, or returns the existing ones for the same clerk_user_id without creating a duplicate, and is retried from Today when setup fails."
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "handler": "auth-2",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "group": "Auth",
+      "request_shape": "",
+      "response_shape": "{user: User, shop_id: string, is_demo: boolean}",
+      "description": "Called after the Clerk sign-in form succeeds on the Login screen; it links the session to the User whose clerk_user_id matches, records last_signed_in_at, and returns the profile the app opens on Today."
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "handler": "auth-3",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "group": "Auth",
+      "request_shape": "",
+      "response_shape": "{signed_out: boolean}",
+      "description": "Ends the app session from the Profile screen and records last_signed_out_at on the User."
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "handler": "auth-4",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Auth",
+      "request_shape": "",
+      "response_shape": "{user: User, shop_id: string, is_demo: boolean}",
+      "description": "Returns the signed-in seller's User and shop identifiers so every business screen loads only the caller's records."
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/auth/me",
+      "handler": "auth-5",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Auth",
+      "request_shape": "Partial<User>",
+      "response_shape": "User",
+      "description": "Saves the seller's name and email from the Profile screen, storing the email in lowercase and refusing an email already used by another User."
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/change-password",
+      "handler": "auth-6",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "group": "Auth",
+      "request_shape": "{current_password: string, new_password: string}",
+      "response_shape": "{changed: boolean}",
+      "description": "Relays a password change from the Profile screen to Clerk, which stores it and ends the existing sessions; the app keeps no password."
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/forgot-password",
+      "handler": "auth-7",
+      "auth_required": false,
+      "group": "Auth",
+      "request_shape": "{email: string}",
+      "response_shape": "{message: string}",
+      "description": "Asks Clerk to email a signed, expiring reset link from the Forgot Password screen and always answers 200 whether or not the email exists."
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/reset-password",
+      "handler": "auth-8",
+      "auth_required": false,
+      "group": "Auth",
+      "request_shape": "{token: string, password: string}",
+      "response_shape": "{reset: boolean}",
+      "description": "Passes the new password from the emailed link on the Reset Password screen to Clerk, which validates the link token and sets the password."
+    },
+    {
+      "method": "POST",
+      "path": "/api/webhooks/clerk",
+      "handler": "webhooks-9",
+      "auth_required": false,
+      "group": "Webhooks",
+      "request_shape": "{type: string, data: object}",
+      "response_shape": "{received: boolean}",
+      "description": "Receives Clerk user.updated and user.deleted events and updates the matching User name or email, or marks the profile deleted, so the local profile follows the Clerk account."
+    },
+    {
+      "method": "GET",
+      "path": "/api/shops/{shopId}",
+      "handler": "shop-10",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Shop",
+      "request_shape": "",
+      "response_shape": "Shop",
+      "description": "Returns the seller's shop details and opening cash balance with its effective date for the Settings screen."
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/shops/{shopId}",
+      "handler": "shop-11",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Shop",
+      "request_shape": "Partial<Shop>",
+      "response_shape": "Shop",
+      "description": "Saves shop name, phone, email, address, opening_cash_balance and opening_balance_effective_date from the Settings screen; the effective date marks which earlier receipts and payments are already inside the opening balance."
+    },
+    {
+      "method": "GET",
+      "path": "/api/customers",
+      "handler": "customers-12",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Customers",
+      "request_shape": "?q=string",
+      "response_shape": "(Customer & {outstanding_balance: number})[]",
+      "description": "Lists the seller's customers for the Customers and New Invoice screens, with search by ?q= on name, phone or email and each row's outstanding_balance = sum of its non-draft, non-cancelled invoice totals minus recorded payments."
+    },
+    {
+      "method": "POST",
+      "path": "/api/customers",
+      "handler": "customers-13",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Customers",
+      "request_shape": "Customer",
+      "response_shape": "Customer",
+      "description": "Creates a customer with a required name and optional phone or email from the New Customer screen, and is also used inline when a new invoice needs a new customer."
+    },
+    {
+      "method": "GET",
+      "path": "/api/customers/{customerId}",
+      "handler": "customers-14",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Customers",
+      "request_shape": "",
+      "response_shape": "{customer: Customer, outstanding_balance: number, invoices: Invoice[], payments: Payment[]}",
+      "description": "Returns one customer with their invoices, payment history and outstanding_balance = sum of non-draft, non-cancelled invoice totals minus recorded payments, for the Customer Detail screen."
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/customers/{customerId}",
+      "handler": "customers-15",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Customers",
+      "request_shape": "Partial<Customer>",
+      "response_shape": "Customer",
+      "description": "Saves edits to a customer's name, phone or email from the Customer Detail screen."
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/customers/{customerId}",
+      "handler": "customers-16",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Customers",
+      "request_shape": "",
+      "response_shape": "{deleted: boolean}",
+      "description": "Removes a customer from the Customer Detail screen only when they have no invoices, and otherwise refuses with 409 so invoice and payment history is kept."
+    },
+    {
+      "method": "GET",
+      "path": "/api/saved-items",
+      "handler": "saved-items-17",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Saved Items",
+      "request_shape": "",
+      "response_shape": "SavedItem[]",
+      "description": "Lists the seller's saved item descriptions and unit prices so the New Invoice screen can reuse them."
+    },
+    {
+      "method": "POST",
+      "path": "/api/saved-items",
+      "handler": "saved-items-18",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Saved Items",
+      "request_shape": "SavedItem",
+      "response_shape": "SavedItem",
+      "description": "Saves a reusable item description and unit price from the New Invoice screen for later invoices."
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/saved-items/{savedItemId}",
+      "handler": "saved-items-19",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Saved Items",
+      "request_shape": "Partial<SavedItem>",
+      "response_shape": "SavedItem",
+      "description": "Changes a saved item's description or unit price; existing invoice items keep the prices they were created with."
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/saved-items/{savedItemId}",
+      "handler": "saved-items-20",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Saved Items",
+      "request_shape": "",
+      "response_shape": "{deleted: boolean}",
+      "description": "Removes a saved item so it no longer appears on New Invoice; invoices already using it are unchanged."
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices",
+      "handler": "invoices-21",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Invoices",
+      "request_shape": "?q=string&sort=string&filter=string",
+      "response_shape": "(Invoice & {customer_name: string, outstanding_balance: number, days_overdue: number, is_overdue: boolean})[]",
+      "description": "Lists the seller's invoices for the Invoices screen with ?q= search by invoice number or customer, ?sort= by due date, outstanding amount or days overdue, and ?filter=overdue|not_due|all, where each row's outstanding_balance = total_amount minus recorded payments and days_overdue counts from due_date on the Asia/Kolkata calendar for unpaid balances."
+    },
+    {
+      "method": "POST",
+      "path": "/api/invoices",
+      "handler": "invoices-22",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Invoices",
+      "request_shape": "{customer_id: string, issue_date: string, due_date: string, notes?: string, items: {saved_item_id?: string, description: string, quantity: number, unit_price: number}[]}",
+      "response_shape": "Invoice",
+      "description": "Creates a draft itemised invoice from the New Invoice screen for an existing customer, checking that due_date is not before issue_date, that quantities are positive whole numbers and unit prices are not negative, and computing each line_total and total_amount on the server with a unique invoice_number."
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "handler": "invoices-23",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Invoices",
+      "request_shape": "",
+      "response_shape": "{invoice: Invoice, customer: Customer, items: InvoiceItem[], outstanding_balance: number, days_overdue: number, is_overdue: boolean}",
+      "description": "Returns one invoice with its items, status, outstanding_balance = total_amount minus recorded payments, and days_overdue, for the Invoice Detail preview and print layout."
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/invoices/{invoiceId}",
+      "handler": "invoices-24",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Invoices",
+      "request_shape": "Partial<Invoice>",
+      "response_shape": "Invoice",
+      "description": "Saves issue_date, due_date, notes, customer or expected_collection_date from the Invoice Detail or Collections screen; due_date may not precede issue_date, status is never set here, and changing the customer or dates on an invoice that already has payments is refused."
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/invoices/{invoiceId}",
+      "handler": "invoices-25",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Invoices",
+      "request_shape": "",
+      "response_shape": "{deleted: boolean}",
+      "description": "Deletes a draft invoice and its items from the Invoice Detail screen; issued invoices are refused with 409 and are cancelled instead."
+    },
+    {
+      "method": "POST",
+      "path": "/api/invoices/{invoiceId}/issue",
+      "handler": "invoices-26",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Invoices",
+      "request_shape": "",
+      "response_shape": "Invoice",
+      "description": "Moves a draft invoice to unpaid from the Invoice Detail screen after checking it has at least one item, a total above zero, a valid due date, and assigns its invoice_number if none exists; an unpaid invoice then counts in receivables and forecasts."
+    },
+    {
+      "method": "POST",
+      "path": "/api/invoices/{invoiceId}/cancel",
+      "handler": "invoices-27",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Invoices",
+      "request_shape": "",
+      "response_shape": "Invoice",
+      "description": "Moves a draft or unpaid invoice to cancelled from the Invoice Detail screen, removing it from receivables and forecasts; it is refused while any payment is recorded against it."
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}/items",
+      "handler": "invoice-items-28",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Invoice Items",
+      "request_shape": "",
+      "response_shape": "InvoiceItem[]",
+      "description": "Lists the line items of one invoice for the Invoice Detail preview and edit view."
+    },
+    {
+      "method": "POST",
+      "path": "/api/invoices/{invoiceId}/items",
+      "handler": "invoice-items-29",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Invoice Items",
+      "request_shape": "{description: string, quantity: number, unit_price: number}",
+      "response_shape": "InvoiceItem",
+      "description": "Adds a printed T-shirt, crochet gift or delivery charge line to a draft or unpaid invoice with no payments, computing line_total = quantity × unit_price and recalculating the invoice total_amount."
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/invoices/{invoiceId}/items/{itemId}",
+      "handler": "invoice-items-30",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Invoice Items",
+      "request_shape": "Partial<InvoiceItem>",
+      "response_shape": "InvoiceItem",
+      "description": "Changes one line's description, quantity or unit price on a draft or unpaid invoice with no payments, recomputing line_total and the invoice total_amount."
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/invoices/{invoiceId}/items/{itemId}",
+      "handler": "invoice-items-31",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Invoice Items",
+      "request_shape": "",
+      "response_shape": "{deleted: boolean, total_amount: number}",
+      "description": "Removes one line from a draft or unpaid invoice with no payments, keeping at least one item and recalculating total_amount."
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}/payments",
+      "handler": "payments-32",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Payments",
+      "request_shape": "",
+      "response_shape": "Payment[]",
+      "description": "Lists an invoice's recorded advances, partial and final payments, newest first, each labelled seller-recorded and not bank-verified, for the Invoice Detail screen."
+    },
+    {
+      "method": "POST",
+      "path": "/api/invoices/{invoiceId}/payments",
+      "handler": "payments-33",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Payments",
+      "request_shape": "{amount: number, paid_on: string, method: string, kind: string, idempotency_key: string}",
+      "response_shape": "{payment: Payment, outstanding_balance: number, status: string}",
+      "description": "Records an advance, partial or final payment on an unpaid or partially paid invoice from the Invoice Detail screen; the server rejects amounts at or below zero, amounts above the outstanding balance (outstanding = total_amount minus recorded payments), draft, cancelled or already paid invoices, and returns the existing payment when the idempotency_key was already used, then recalculates the invoice status."
+    },
+    {
+      "method": "GET",
+      "path": "/api/customers/{customerId}/payments",
+      "handler": "payments-34",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Payments",
+      "request_shape": "",
+      "response_shape": "Payment[]",
+      "description": "Returns all payments across a customer's invoices, newest first, for the payment history section of the Customer Detail screen."
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}/follow-ups",
+      "handler": "follow-ups-35",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Follow-ups",
+      "request_shape": "",
+      "response_shape": "FollowUp[]",
+      "description": "Lists an invoice's reminder drafts and sent follow-ups, newest first, for the reminders section of the Invoice Detail screen."
+    },
+    {
+      "method": "POST",
+      "path": "/api/invoices/{invoiceId}/follow-ups",
+      "handler": "follow-ups-36",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Follow-ups",
+      "request_shape": "",
+      "response_shape": "FollowUp",
+      "description": "Creates an editable reminder draft built from the invoice number, customer name, outstanding balance, due date and days overdue, for the Invoice Detail and Collections screens; the server refuses draft, cancelled and fully paid invoices and never marks anything as sent."
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/follow-ups/{followUpId}",
+      "handler": "follow-ups-37",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Follow-ups",
+      "request_shape": "{body?: string}",
+      "response_shape": "FollowUp",
+      "description": "Saves the seller's edits to a reminder draft's text on the Invoice Detail screen; the server refuses the change once the follow-up is sent."
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/follow-ups/{followUpId}",
+      "handler": "follow-ups-38",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Follow-ups",
+      "request_shape": "",
+      "response_shape": "{deleted: boolean}",
+      "description": "Removes a reminder draft the seller no longer wants; the server refuses to delete a follow-up whose status is sent, because sent follow-ups are kept as the contact history."
+    },
+    {
+      "method": "POST",
+      "path": "/api/follow-ups/{followUpId}/mark-sent",
+      "handler": "follow-ups-39",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Follow-ups",
+      "request_shape": "{channel: string, sent_at?: string}",
+      "response_shape": "FollowUp",
+      "description": "Records that the seller sent a reminder through WhatsApp, copied it or another channel, setting status to sent and sent_at to the current time; the server only accepts drafts, so opening or copying a draft never marks it sent, and the last follow-up shown on Collections and Today updates from this value."
+    },
+    {
+      "method": "GET",
+      "path": "/api/expenses",
+      "handler": "expenses-40",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Expenses",
+      "request_shape": "",
+      "response_shape": "{expense: Expense, is_overdue: boolean, days_overdue: number, counted_in_forecast_on: string}[]",
+      "description": "Lists bills with optional search, category and status filters, sorted by due date, and flags each unpaid bill as overdue when its due date (or revised payment date, once set) is before today in Asia/Kolkata, for the Expenses screen."
+    },
+    {
+      "method": "POST",
+      "path": "/api/expenses",
+      "handler": "expenses-41",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Expenses",
+      "request_shape": "Expense",
+      "response_shape": "Expense",
+      "description": "Creates an upcoming bill with description, category, amount and due date from the New Expense screen; the server rejects amounts at or below zero and sets status to unpaid."
+    },
+    {
+      "method": "GET",
+      "path": "/api/expenses/{expenseId}",
+      "handler": "expenses-42",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Expenses",
+      "request_shape": "",
+      "response_shape": "Expense",
+      "description": "Returns one bill with its status, due date, revised payment date and paid date for the Expense Detail screen."
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/expenses/{expenseId}",
+      "handler": "expenses-43",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Expenses",
+      "request_shape": "Partial<Expense>",
+      "response_shape": "Expense",
+      "description": "Saves edits to a bill's description, category, amount and due date from the Expense Detail screen; status and paid_on can only change through the mark-paid action, and paid bills keep their amount."
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/expenses/{expenseId}",
+      "handler": "expenses-44",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Expenses",
+      "request_shape": "",
+      "response_shape": "{deleted: boolean}",
+      "description": "Removes a bill entered by mistake from the Expense Detail screen; the server refuses to delete a bill whose status is paid."
+    },
+    {
+      "method": "POST",
+      "path": "/api/expenses/{expenseId}/mark-paid",
+      "handler": "expenses-45",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Expenses",
+      "request_shape": "{paid_on: string}",
+      "response_shape": "Expense",
+      "description": "Records that a bill was paid on a given date from the Expense Detail screen, setting status to paid; the server refuses a bill already paid, removes it from upcoming outflows and resolves its upcoming_bill alert."
+    },
+    {
+      "method": "POST",
+      "path": "/api/expenses/{expenseId}/revised-payment-date",
+      "handler": "expenses-46",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Expenses",
+      "request_shape": "{revised_payment_date: string}",
+      "response_shape": "Expense",
+      "description": "Sets the seller's revised expected payment date for an unpaid bill from the Expenses or Expense Detail screen, which ends the treatment of an overdue bill as a today outflow; the server rejects paid bills and keeps the original due date unchanged."
+    },
+    {
+      "method": "GET",
+      "path": "/api/collections",
+      "handler": "collections-47",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Collections",
+      "request_shape": "",
+      "response_shape": "{invoice_id: string, customer_name: string, invoice_number: string, outstanding_amount: number, due_date: string, expected_collection_date: string, days_overdue: number, is_overdue: boolean, last_follow_up_sent_at: string}[]",
+      "description": "Lists outstanding invoices (unpaid or partially paid, excluding draft, cancelled and paid) with customer, invoice number, outstanding amount, due date, days overdue and last sent follow-up, filterable by search text and sortable by outstanding amount or days overdue, with overdue invoices kept separate from those not yet due; days overdue = Asia/Kolkata today minus due date, and outstanding = total minus recorded payments."
+    },
+    {
+      "method": "GET",
+      "path": "/api/alerts",
+      "handler": "alerts-48",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Alerts",
+      "request_shape": "",
+      "response_shape": "Alert[]",
+      "description": "Returns active alerts (overdue invoice, upcoming bill, cash shortage, overdue invoice without expected date), each linked to its invoice, bill or forecast, which the Today page groups into follow-ups, bills coming up and cash alerts."
+    },
+    {
+      "method": "POST",
+      "path": "/api/alerts/{alertId}/action-taken",
+      "handler": "alerts-49",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Alerts",
+      "request_shape": "",
+      "response_shape": "Alert",
+      "description": "Records that the seller acted on an alert (opened its draft reminder or reviewed its bill) by setting action_taken_at; it does not resolve the alert, which resolves only when the underlying record changes."
+    },
+    {
+      "method": "GET",
+      "path": "/api/cash-forecast",
+      "handler": "cash-forecast-50",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Cash forecast",
+      "request_shape": "?forecast_days=number",
+      "response_shape": "{forecast_days: number, opening_balance: number, current_available_cash: number, expected_collections_total: number, unscheduled_overdue_total: number, unpaid_expenses_total: number, projected_end_balance: number, first_shortage: {date: string, amount: number} | null, chart: {date: string, balance: number}[], breakdown: {label: string, amount: number, kind: string}[], assumptions: string[], note: string}",
+      "description": "Returns the baseline cash projection for the chosen forecast_days (30, 60 or 90) as balance_t = opening balance plus actual receipts and payments after the effective date, plus expected collections dated within the window (outstanding balance, using expected_collection_date defaulting to due_date; overdue invoices without a date excluded), minus unpaid bills due within the window, with overdue unpaid bills counted as outflows today until a revised date is set; paid, draft and cancelled records are excluded, and the response includes the chart series, breakdown, first shortage date and amount, assumptions and the note that collections are estimates."
+    },
+    {
+      "method": "GET",
+      "path": "/api/scenarios",
+      "handler": "scenarios-51",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Scenarios",
+      "request_shape": "?status=string",
+      "response_shape": "Scenario[]",
+      "description": "Lists the seller's what-if scenarios, filterable by status, so the Cash Forecast screen can show the active one."
+    },
+    {
+      "method": "POST",
+      "path": "/api/scenarios",
+      "handler": "scenarios-52",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Scenarios",
+      "request_shape": "{invoice_id: string, delay_days: number, forecast_days: number}",
+      "response_shape": "Scenario",
+      "description": "Creates an active what-if that delays one outstanding invoice's expected collection by delay_days (default 15) from the Cash Forecast screen; the server refuses draft, cancelled and paid invoices, delay_days below 1, and a second active scenario (409), and it changes no invoice, payment or bill."
+    },
+    {
+      "method": "GET",
+      "path": "/api/scenarios/{scenarioId}",
+      "handler": "scenarios-53",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Scenarios",
+      "request_shape": "",
+      "response_shape": "{scenario: Scenario, baseline: {min_cash: number, first_shortage_date: string | null}, scenario_result: {min_cash: number, first_shortage_date: string | null}, min_cash_change: number, shortage_amount: number, suggested_action: string}",
+      "description": "Returns the scenario compared with the baseline on the same forecast: minimum cash and first shortage date for each, with the shortage amount and suggested action, where scenario collection date = expected collection date plus delay_days and balances use the same rules as the baseline forecast."
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/scenarios/{scenarioId}",
+      "handler": "scenarios-54",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Scenarios",
+      "request_shape": "Partial<Scenario>",
+      "response_shape": "Scenario",
+      "description": "Changes an active scenario's selected invoice, editable delay_days or forecast_days from the Cash Forecast screen and recalculates its comparison; the server refuses changes to a reset scenario and never edits saved invoices or payments."
+    },
+    {
+      "method": "POST",
+      "path": "/api/scenarios/{scenarioId}/reset",
+      "handler": "scenarios-55",
+      "auth_required": true,
+      "roles": [
+        "Seller"
+      ],
+      "own_only": true,
+      "group": "Scenarios",
+      "request_shape": "",
+      "response_shape": "Scenario",
+      "description": "Resets a what-if scenario to the baseline from the Cash Forecast screen by setting its status to reset, leaving every invoice, payment, bill and expected collection date unchanged."
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/payments/{paymentId}",
+      "handler": "fix-56",
+      "description": "Reverses a mistaken seller-recorded payment on an unpaid or partially paid invoice, refusing draft, cancelled or paid invoices, and recalculates the invoice status.",
+      "group": "Payments"
+    },
+    {
+      "method": "GET",
+      "path": "/api/cash-forecast/unscheduled",
+      "handler": "fix-57",
+      "description": "Lists overdue unpaid or partially paid invoices with no expected_collection_date, each with invoice number, customer, outstanding balance and days overdue, for the Unscheduled section of the Cash Fore",
+      "group": "Unscheduled"
+    }
+  ]
+}

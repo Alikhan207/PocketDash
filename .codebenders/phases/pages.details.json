@@ -1,0 +1,1386 @@
+{
+  "version": 1,
+  "details": {
+    "/": {
+      "detail": {
+        "purpose": "Gives the seller a daily starting point: which overdue customers to chase, which bills are coming up, and any cash alerts that need attention. Only the seller uses this screen.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Heading 'PocketDash' with a line saying it tracks who owes money, follow-ups and whether cash will last. Quick buttons: 'New invoice' (/invoices/new), 'New bill' (/expenses/new)."
+          },
+          {
+            "area": "Follow up today",
+            "contents": "Heading 'Follow up today'. A list of overdue unpaid invoices, ordered by outstanding amount and then days overdue. Each row shows customer name, invoice number, outstanding amount in ₹, days overdue, and last follow-up date (or 'None yet'). Footer link 'View all follow-ups' to /collections."
+          },
+          {
+            "area": "Upcoming bills",
+            "contents": "Heading 'Upcoming bills'. A short list of unpaid bills due soon, plus any overdue unpaid bills flagged for immediate attention. Each row shows description, category, amount in ₹, due date, and an 'Overdue' label where relevant. Footer link 'View all bills' to /expenses."
+          },
+          {
+            "area": "Cash alerts",
+            "contents": "Heading 'Cash alerts'. Alert cards, each with a short message and one action: overdue invoice (draft reminder); upcoming supplier bill (review bill); projected cash shortage with its date and amount (review affected collections and bills); overdue invoice without an expected collection date (set expected date)."
+          },
+          {
+            "area": "Jump to",
+            "contents": "Shortcut buttons to the main screens: 'Customers', 'Invoices', 'Collections', 'Expenses', 'Cash Forecast', 'Settings'."
+          }
+        ],
+        "shows": [
+          {
+            "item": "Follow-up list",
+            "details": "Overdue unpaid invoices only. Fields: customer, invoice number, outstanding amount (invoice total minus recorded payments), days overdue, last follow-up. Sorted by outstanding amount, then days overdue. Partially paid invoices appear with their remaining balance. Draft and cancelled invoices are exc"
+          },
+          {
+            "item": "Upcoming bills",
+            "details": "Unpaid bills with description, category (blank T-shirts, printing, yarn, packaging, delivery, other), amount and due date. Overdue unpaid bills are flagged and treated as outflows today. Paid bills are not shown as upcoming."
+          },
+          {
+            "item": "Cash alerts",
+            "details": "Overdue invoice alerts, upcoming bill alerts, projected shortage alert with first shortage date and amount, and alerts for overdue invoices without an expected collection date. Alerts resolve or update when the underlying records change."
+          },
+          {
+            "item": "Totals",
+            "details": "Count of invoices to follow up and total outstanding amount in ₹ for the follow-up list. Count and total of bills due in the upcoming window."
+          }
+        ],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Open a follow-up row to draft or copy a reminder",
+            "result": "Opens that invoice's detail at /invoices/[id]. Opening a draft does not mark a follow-up as sent."
+          },
+          {
+            "who": "Everyone",
+            "action": "Open an upcoming bill",
+            "result": "Opens the bill at /expenses/[id] to review it and record payment if paid."
+          },
+          {
+            "who": "Everyone",
+            "action": "Open a cash alert",
+            "result": "Opens the linked record: invoice detail for overdue invoice alerts, bill detail for bill alerts, and Cash Forecast for shortage and expected-date alerts."
+          },
+          {
+            "who": "Everyone",
+            "action": "Use a quick button or shortcut",
+            "result": "Opens the chosen screen. Nothing on this screen is saved or changed."
+          }
+        ],
+        "links": [
+          {
+            "to": "/invoices/new",
+            "label": "New invoice",
+            "when": "Seller needs to create a new itemised invoice"
+          },
+          {
+            "to": "/expenses/new",
+            "label": "New bill",
+            "when": "Seller adds an upcoming bill"
+          },
+          {
+            "to": "/invoices/[id]",
+            "label": "Follow-up row / Draft reminder",
+            "when": "Seller wants to draft or copy a reminder for an overdue invoice"
+          },
+          {
+            "to": "/collections",
+            "label": "View all follow-ups",
+            "when": "Seller wants the full searched and sorted collections list"
+          },
+          {
+            "to": "/expenses/[id]",
+            "label": "Bill row / Review bill",
+            "when": "Seller reviews an upcoming or overdue bill or records it paid"
+          },
+          {
+            "to": "/expenses",
+            "label": "View all bills",
+            "when": "Seller wants all upcoming bills by category and due date"
+          },
+          {
+            "to": "/cash-forecast",
+            "label": "Review cash forecast",
+            "when": "Seller reviews a projected shortage or sets an expected collection date"
+          },
+          {
+            "to": "/customers",
+            "label": "Customers",
+            "when": "Seller wants to find a customer or view balances"
+          },
+          {
+            "to": "/invoices",
+            "label": "Invoices",
+            "when": "Seller wants to search and sort all invoices"
+          },
+          {
+            "to": "/settings",
+            "label": "Settings",
+            "when": "Seller sets shop details or the opening cash balance"
+          }
+        ],
+        "states": {
+          "empty": "No follow-ups, bills or alerts: show 'Nothing to follow up today' and 'No bills coming up' with a link to add a bill.",
+          "loading": "Show placeholder rows and a loading indicator in each section while records load.",
+          "error": "Show an error message in the affected section with a retry button; other sections still show."
+        },
+        "notes": "Seller only; no other persona sees this screen. Overdue means an unpaid balance remains after the due date, calculated in Asia/Kolkata dates. Amounts use Indian rupee formatting. Draft and cancelled invoices are excluded. Overdue bills are outflows today until the seller sets a revised date. The app never sends reminders or changes payment dates automatically. Manual payments are labelled seller-recorded, not bank-verified. Layout must work on a mobile-sized screen."
+      },
+      "basis": "[\"Today\",\"Shows who to follow up with today, which bills are coming, and any cash alerts.\",[\"Seller\"],[[\"Seller\",\"see today's follow-ups, upcoming bills and cash alerts\"]]]",
+      "at": "2026-11-22T12:08:22.456Z"
+    },
+    "/login": {
+      "detail": {
+        "purpose": "Lets the seller sign in with email and password to reach their private business records. Only the seller uses this screen.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Heading 'Sign in to PocketDash' with a short line saying it opens the seller's private records."
+          },
+          {
+            "area": "Sign-in form",
+            "contents": "Email field, password field, and a 'Sign in' button."
+          },
+          {
+            "area": "Form message",
+            "contents": "Space below the button for a sign-in error message when sign-in fails."
+          },
+          {
+            "area": "Account links",
+            "contents": "'Forgot password?' link and 'Create a seller account' link."
+          }
+        ],
+        "shows": [],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Enters email and password, then selects 'Sign in'.",
+            "result": "On success, the seller is taken to Today (/) with their private records available."
+          },
+          {
+            "who": "Everyone",
+            "action": "Selects 'Forgot password?'.",
+            "result": "Opens Forgot Password (/forgot-password) to request a reset link by email."
+          },
+          {
+            "who": "Everyone",
+            "action": "Selects 'Create a seller account'.",
+            "result": "Opens Sign Up (/signup) to create a seller account."
+          }
+        ],
+        "links": [
+          {
+            "to": "/",
+            "label": "Sign in",
+            "when": "After successful sign-in, the seller lands on Today."
+          },
+          {
+            "to": "/forgot-password",
+            "label": "Forgot password?",
+            "when": "The seller cannot remember their password and needs a reset link by email."
+          },
+          {
+            "to": "/signup",
+            "label": "Create a seller account",
+            "when": "The person is new and needs an account to keep their business records."
+          }
+        ],
+        "states": {
+          "empty": "Both fields are blank and the sign-in button is available.",
+          "loading": "While signing in, the button shows a busy state and the form cannot be submitted again.",
+          "error": "A clear message says the email or password is incorrect, and the entered email is kept."
+        },
+        "notes": "Only seller accounts sign in; there are no helper accounts or separate permissions in this MVP. Both fields are required. Wrong email or password shows one error without saying which field was wrong. Private records stay hidden until sign-in succeeds. Repeated sign-in attempts must not create duplicate sessions."
+      },
+      "basis": "[\"Login\",\"Lets the seller sign in with email and password to reach their private records.\",[\"Seller\"],[[\"Seller\",\"sign in to the app\"]]]",
+      "at": "2026-11-22T12:08:31.588Z"
+    },
+    "/signup": {
+      "detail": {
+        "purpose": "Lets anyone create a seller account so they can keep their private business records in PocketDash. The person arriving here is a new seller who has no account yet.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Heading 'Create your PocketDash account' with a line saying the account keeps your customers, invoices and cash records private to you."
+          },
+          {
+            "area": "Sign-up form",
+            "contents": "Email field and password field, with a 'Create account' button. Entered values are validated before submission."
+          },
+          {
+            "area": "Sign-in prompt",
+            "contents": "Text 'Already have an account?' followed by a 'Sign in' link."
+          }
+        ],
+        "shows": [],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Enters an email and password and presses 'Create account'.",
+            "result": "A seller account is created and the seller is signed in to their own private records, then taken to Today (/)."
+          },
+          {
+            "who": "Everyone",
+            "action": "Follows 'Sign in' because they already have an account.",
+            "result": "Opens the Login screen."
+          }
+        ],
+        "links": [
+          {
+            "to": "/login",
+            "label": "Sign in",
+            "when": "When the person already has an account and wants to sign in instead."
+          },
+          {
+            "to": "/",
+            "label": "Create account (on success)",
+            "when": "After the account is created, the seller goes to Today to start working."
+          }
+        ],
+        "states": {
+          "empty": "Blank email and password fields with the 'Create account' button available.",
+          "loading": "'Create account' button shows a working state and the fields are disabled until the account is created or the attempt fails.",
+          "error": "Message above the form, such as an invalid email, a weak password, or an email that already has an account, with the entered email kept in the field."
+        },
+        "notes": "Anyone may create an account, but each account's records are private to that account. Email must be a valid email address. Password rules are not specified in the requirements; apply the standard sign-up rules the build chooses and state them on the form. The public judge demo is isolated and uses only fictional data; it is not created from this screen."
+      },
+      "basis": "[\"Sign Up\",\"Lets anyone create a seller account to keep their private business records.\",[\"Seller\"],[[\"Seller\",\"create an account\"]]]",
+      "at": "2026-11-22T12:08:35.037Z"
+    },
+    "/forgot-password": {
+      "detail": {
+        "purpose": "Lets the seller request a password reset link by email when they cannot sign in. The seller comes here from the sign-in screen and leaves once the reset email is on its way.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Heading 'Forgot password' with a one-line explanation that a reset link will be emailed to the seller's address."
+          },
+          {
+            "area": "Reset request form",
+            "contents": "One email field labelled 'Email' and a primary button labelled 'Send reset link'."
+          },
+          {
+            "area": "Confirmation message",
+            "contents": "Appears after submitting: a short message saying a reset link has been sent to the email if it matches a seller account, and asking the seller to check their inbox."
+          },
+          {
+            "area": "Back link",
+            "contents": "Text link 'Back to sign in' below the form."
+          }
+        ],
+        "shows": [],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Enters their account email and presses 'Send reset link'.",
+            "result": "A password reset link is emailed to that address and the confirmation message is shown on this screen."
+          },
+          {
+            "who": "Everyone",
+            "action": "Presses 'Back to sign in'.",
+            "result": "Opens the Login screen without sending anything."
+          }
+        ],
+        "links": [
+          {
+            "to": "/login",
+            "label": "Back to sign in",
+            "when": "The seller remembers their password or wants to return to sign-in without requesting a reset."
+          }
+        ],
+        "states": {
+          "empty": "Email field is blank with the 'Send reset link' button ready; no messages are shown.",
+          "loading": "The 'Send reset link' button shows a busy state and cannot be pressed again until the request finishes.",
+          "error": "A message appears beside the email field if the email is missing or badly formatted, or if the request fails; the entered email is kept so the seller can retry."
+        },
+        "notes": "The reset link itself is opened from the email and leads to Reset Password (/reset-password); it is not a link on this screen. The email must be entered before the request can be sent. Only the seller can use this screen; no private records are shown."
+      },
+      "basis": "[\"Forgot Password\",\"Lets the seller request a password reset link by email.\",[\"Seller\"],[[\"Seller\",\"request a reset link by email\"]]]",
+      "at": "2026-11-22T12:08:41.453Z"
+    },
+    "/reset-password": {
+      "detail": {
+        "purpose": "Lets the seller set a new password from the emailed reset link. The seller arrives here from the reset email and then signs in again with the new password.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Heading 'Set a new password' with a short line saying the password is for the seller's PocketDash account."
+          },
+          {
+            "area": "Password form",
+            "contents": "'New password' field and 'Confirm new password' field, with a 'Set new password' button."
+          },
+          {
+            "area": "Result message",
+            "contents": "Shown after submitting: a success message when the password is saved, or an error message if it could not be saved."
+          },
+          {
+            "area": "Sign-in link",
+            "contents": "Link 'Back to sign in' after a successful reset."
+          }
+        ],
+        "shows": [],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Enters a new password and confirms it, then submits 'Set new password'.",
+            "result": "The password is saved for the seller's account, and the seller is taken to /login to sign in with it."
+          },
+          {
+            "who": "Everyone",
+            "action": "Follows 'Back to sign in' after a successful reset.",
+            "result": "Opens /login."
+          }
+        ],
+        "links": [
+          {
+            "to": "/login",
+            "label": "Back to sign in",
+            "when": "After the password has been saved successfully."
+          },
+          {
+            "to": "/forgot-password",
+            "label": "Request a new reset link",
+            "when": "The emailed link is expired or has already been used."
+          }
+        ],
+        "states": {
+          "empty": "",
+          "loading": "While the new password is being saved, the button is disabled and shows a saving indicator.",
+          "error": "If the link is expired or invalid, or the password cannot be saved, a message explains this and offers 'Request a new reset link'."
+        },
+        "notes": "Reached only from the emailed reset link; the link must be valid to show the form. The reset must not change any business records (customers, invoices, payments, bills, settings). Password rules and the mismatch message are not specified in the requirements."
+      },
+      "basis": "[\"Reset Password\",\"Lets the seller set a new password from the emailed reset link.\",[\"Seller\"],[[\"Seller\",\"set a new password from the emailed link\"]]]",
+      "at": "2026-11-22T12:08:45.225Z"
+    },
+    "/profile": {
+      "detail": {
+        "purpose": "Lets the seller view their own name and email, change their name, email or password, and sign out. The seller is the only person who uses it.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Heading 'Profile' with a short line saying these are the seller's own account details."
+          },
+          {
+            "area": "Account details",
+            "contents": "Name and email fields showing the seller's current values, with a 'Save changes' button."
+          },
+          {
+            "area": "Password settings",
+            "contents": "Fields for current password, new password and confirm new password, with a 'Change password' button."
+          },
+          {
+            "area": "Sign out",
+            "contents": "A 'Sign out' button."
+          }
+        ],
+        "shows": [
+          {
+            "item": "Seller account",
+            "details": "Name and email, pre-filled with the current values. Password is never shown."
+          }
+        ],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Change name or email and save",
+            "result": "The new name or email is saved and shown on this screen."
+          },
+          {
+            "who": "Everyone",
+            "action": "Change password",
+            "result": "The password is updated after the current password is entered correctly and the new password is confirmed."
+          },
+          {
+            "who": "Everyone",
+            "action": "Sign out",
+            "result": "The seller is signed out and taken to the login screen."
+          }
+        ],
+        "links": [
+          {
+            "to": "/login",
+            "label": "Sign out",
+            "when": "After the seller signs out, they return to the sign-in screen."
+          }
+        ],
+        "states": {
+          "empty": "",
+          "loading": "Account details show a loading indicator until the current name and email load.",
+          "error": "A failed save shows an error message beside the form and keeps the entered values."
+        },
+        "notes": "Only the signed-in seller can see this screen. No helper accounts or permissions exist. A new email must be valid. A wrong current password must not change the password. Records stay private to the seller's account."
+      },
+      "basis": "[\"Profile\",\"Shows the seller's own name, email and password settings and lets them sign out.\",[\"Seller\"],[[\"Seller\",\"change name, email or password, and sign out\"]]]",
+      "at": "2026-11-22T12:08:50.807Z"
+    },
+    "/customers": {
+      "detail": {
+        "purpose": "Lets the seller find and browse saved customers and see each customer's outstanding balance. The seller comes here to look up who a customer is or to open a customer's record.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Heading 'Customers' and a 'New customer' button."
+          },
+          {
+            "area": "Search",
+            "contents": "Search field to find a saved customer by name."
+          },
+          {
+            "area": "Customers list",
+            "contents": "One row per saved customer, each showing the customer's name, phone number or email if entered, and outstanding balance in rupees. Each row opens that customer's detail page."
+          },
+          {
+            "area": "Empty, loading or error message",
+            "contents": "Shown in place of the list when there are no customers, while loading, or when loading fails."
+          }
+        ],
+        "shows": [
+          {
+            "item": "Saved customers",
+            "details": "Name, optional phone number or email, and outstanding balance. The balance is the total of the customer's invoices minus recorded payments, in Indian rupee format, the same figure shown on their invoices and in collections."
+          },
+          {
+            "item": "Outstanding balance",
+            "details": "Excludes draft and cancelled invoices. Matches the balance shown on Customer Detail."
+          }
+        ],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Searches the customer list by name to find a customer.",
+            "result": "The list narrows to matching customers."
+          },
+          {
+            "who": "Everyone",
+            "action": "Browses the list and opens a customer.",
+            "result": "Opens that customer's detail page."
+          },
+          {
+            "who": "Everyone",
+            "action": "Taps 'New customer'.",
+            "result": "Opens the New Customer form."
+          }
+        ],
+        "links": [
+          {
+            "to": "/customers/[id]",
+            "label": "Customer row",
+            "when": "When the seller wants to see or edit a customer's invoices, payment history and balance."
+          },
+          {
+            "to": "/customers/new",
+            "label": "New customer",
+            "when": "When the seller needs to add a customer who is not yet saved."
+          }
+        ],
+        "states": {
+          "empty": "No customers saved yet: a short message with a 'New customer' button.",
+          "loading": "A loading indicator in place of the list.",
+          "error": "A message that the customers could not be loaded, with a retry option."
+        },
+        "notes": "Only the seller can see their customers. Phone and email are optional, so rows without them show only the name and balance. Amounts use Indian rupee formatting."
+      },
+      "basis": "[\"Customers\",\"Lists saved customers with their outstanding balances so they can be found and browsed.\",[\"Seller\"],[[\"Seller\",\"find and browse customers and their balances\"]]]",
+      "at": "2026-11-22T12:08:55.789Z"
+    },
+    "/customers/{}": {
+      "detail": {
+        "purpose": "Shows one customer's invoices, payment history and outstanding balance, and lets the seller edit the customer's name, phone and email. The seller opens it from the customer list or an invoice to check what this customer owes and to update their details.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Customer name as the heading, with an Edit details button. Below it, the phone number and email if entered."
+          },
+          {
+            "area": "Outstanding balance card",
+            "contents": "Total outstanding balance across this customer's unpaid, partially paid and overdue invoices, in Indian rupee format. Draft and cancelled invoices are not included."
+          },
+          {
+            "area": "Customer details form",
+            "contents": "Editable fields: Name (required), Phone (optional), Email (optional), with Save and Cancel buttons. Opens when Edit details is pressed; otherwise the details show as read-only text."
+          },
+          {
+            "area": "Invoices list",
+            "contents": "One row per invoice for this customer: invoice number, issue date, due date, invoice total, recorded payments, outstanding balance and status label (unpaid, partially paid, paid or overdue). Draft and cancelled invoices are shown with their own label and no outstanding amount. A New invoice button sits above the list."
+          },
+          {
+            "area": "Payment history",
+            "contents": "All recorded payments for this customer, newest first: amount, date, payment method, the invoice it was recorded against, and the label seller-recorded, not bank-verified."
+          }
+        ],
+        "shows": [
+          {
+            "item": "Customer details",
+            "details": "Name, phone number (optional), email (optional). Shown as read-only text until edited."
+          },
+          {
+            "item": "Outstanding balance",
+            "details": "Sum of invoice total minus recorded payments for this customer's receivable invoices; same figure as elsewhere in the app."
+          },
+          {
+            "item": "Invoices",
+            "details": "Invoice number, issue date, due date, total, payments recorded, outstanding balance, status label. Ordered by due date, oldest first, with overdue invoices at the top. Each row shows how many days overdue when overdue."
+          },
+          {
+            "item": "Payment history",
+            "details": "Amount, date, method, linked invoice number, seller-recorded label. Ordered newest first. Advances, partial payments and final payments all appear here."
+          },
+          {
+            "item": "Totals",
+            "details": "Outstanding balance total at the top; invoice totals and payment totals may be shown per invoice row only."
+          }
+        ],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Edit name, phone or email and save",
+            "result": "Customer details are updated and the new values show on this screen and in the customer list. Invoices keep their existing customer details as recorded."
+          },
+          {
+            "who": "Everyone",
+            "action": "Cancel an edit",
+            "result": "Edits are discarded and the saved details show again."
+          },
+          {
+            "who": "Everyone",
+            "action": "Open an invoice row",
+            "result": "Opens that invoice's detail screen to see its preview, balance and payments, and to record payments or follow-ups."
+          },
+          {
+            "who": "Everyone",
+            "action": "Start a new invoice for this customer",
+            "result": "Opens the new invoice form, where this customer can be chosen from saved customers."
+          }
+        ],
+        "links": [
+          {
+            "to": "/invoices/[id]",
+            "label": "Invoice number or row",
+            "when": "The seller wants to see one invoice's preview, status, balance and payments, or record a payment or follow-up."
+          },
+          {
+            "to": "/invoices/new",
+            "label": "New invoice",
+            "when": "The seller wants to bill this customer again for new items."
+          }
+        ],
+        "states": {
+          "empty": "No invoices yet: the invoices list shows a short message and a New invoice button; payment history shows that no payments are recorded.",
+          "loading": "Customer details, balance, invoices and payments show a loading placeholder until the record is fetched.",
+          "error": "If the customer cannot be loaded, show an error message with a retry button; if a save fails, keep the edited values and show an error message."
+        },
+        "notes": "Name is required; phone and email are optional. Only the signed-in seller can see or edit this customer. Payments are recorded on the invoice detail screen, not here. Outstanding balance excludes draft and cancelled invoices and must match the figure shown on the invoices and collections screens."
+      },
+      "basis": "[\"Customer Detail\",\"Shows one customer's invoices, payment history and outstanding balance, with editing of their details.\",[\"Seller\"],[[\"Seller\",\"edit customer details and review invoices, payments and balance\"]]]",
+      "at": "2026-11-22T12:09:03.773Z"
+    },
+    "/customers/new": {
+      "detail": {
+        "purpose": "Lets the seller add a new customer with a name and an optional phone number or email, so the customer can be reused on invoices and tracked for balances. The seller is the only user of this screen.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Heading \"New customer\" with a short line saying that name is required and phone or email is optional."
+          },
+          {
+            "area": "Customer form",
+            "contents": "Name field (required). Phone number field (optional). Email field (optional). Inline error text under any field that fails validation."
+          },
+          {
+            "area": "Form actions",
+            "contents": "Primary \"Save customer\" button. Secondary \"Cancel\" link back to the customers list."
+          }
+        ],
+        "shows": [],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Enters a name and optionally a phone number or email, then clicks \"Save customer\".",
+            "result": "The customer is saved and the seller goes to that customer's Customer Detail page, where the new customer can be reused on invoices."
+          },
+          {
+            "who": "Everyone",
+            "action": "Clicks \"Cancel\" without saving.",
+            "result": "Nothing is saved and the seller returns to the Customers list."
+          }
+        ],
+        "links": [
+          {
+            "to": "/customers/[id]",
+            "label": "Save customer",
+            "when": "After a successful save, to view the new customer's details."
+          },
+          {
+            "to": "/customers",
+            "label": "Cancel",
+            "when": "When the seller leaves without saving."
+          }
+        ],
+        "states": {
+          "empty": "The form starts blank with no saved values shown.",
+          "loading": "While saving, the Save button shows a busy state and the form cannot be submitted again.",
+          "error": "If the name is missing or a save fails, an inline message explains the problem and the entered values stay in the form."
+        },
+        "notes": "Name is required. Phone number and email are optional. A customer with a phone number can later be used for a WhatsApp reminder draft, which the seller reviews and sends themselves. Records must persist after saving. Only the signed-in seller can see or add customers."
+      },
+      "basis": "[\"New Customer\",\"Lets the seller add a customer with a name and an optional phone number or email.\",[\"Seller\"],[[\"Seller\",\"add a customer with name and optional phone or email\"]]]",
+      "at": "2026-11-22T12:09:07.487Z"
+    },
+    "/invoices": {
+      "detail": {
+        "purpose": "Lets the seller search and sort all invoices and see at a glance what is owed, with overdue invoices kept apart from those not yet due. Used by the seller to find an invoice and see what is owed.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Heading \"Invoices\" and a \"New invoice\" button."
+          },
+          {
+            "area": "Search and sort bar",
+            "contents": "Search field for invoice number or customer name; sort control for the list."
+          },
+          {
+            "area": "Overdue invoices section",
+            "contents": "Heading \"Overdue\" with a count; rows for unpaid or partially paid invoices whose balance remains after the due date."
+          },
+          {
+            "area": "Not yet due section",
+            "contents": "Heading \"Not yet due\" with a count; rows for unpaid or partially paid invoices whose due date has not passed."
+          },
+          {
+            "area": "Paid invoices",
+            "contents": "Invoices with a zero balance show the Paid label. The requirements do not say where they sit, so the builder should confirm placement."
+          }
+        ],
+        "shows": [
+          {
+            "item": "Invoice row",
+            "details": "Invoice number, customer name, issue date, due date, invoice total, payments recorded, outstanding balance (total minus payments), status label (unpaid, partially paid, paid, overdue), days overdue on overdue rows."
+          },
+          {
+            "item": "Section counts",
+            "details": "Number of invoices in Overdue and in Not yet due."
+          },
+          {
+            "item": "Balance rule",
+            "details": "Outstanding balance is shown exactly as it is on every other screen. Draft and cancelled invoices are kept out of what is owed."
+          }
+        ],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Types in the search field to find an invoice by number or customer name.",
+            "result": "The list narrows to matching invoices in both sections."
+          },
+          {
+            "who": "Everyone",
+            "action": "Chooses a sort order for the list.",
+            "result": "Rows in each section reorder to match the chosen sort."
+          },
+          {
+            "who": "Everyone",
+            "action": "Opens an invoice row.",
+            "result": "The app opens that invoice's detail screen."
+          },
+          {
+            "who": "Everyone",
+            "action": "Taps \"New invoice\".",
+            "result": "The app opens the New Invoice screen."
+          }
+        ],
+        "links": [
+          {
+            "to": "/invoices/[id]",
+            "label": "Invoice row",
+            "when": "Seller wants to see the invoice, record a payment or draft a reminder."
+          },
+          {
+            "to": "/invoices/new",
+            "label": "New invoice",
+            "when": "Seller needs to bill a new order."
+          }
+        ],
+        "states": {
+          "empty": "No invoices yet: a short message with a \"New invoice\" button.",
+          "loading": "Skeleton rows in both sections while invoices load.",
+          "error": "A message that invoices could not load, with a retry option."
+        },
+        "notes": "Search and sort apply to both sections. Draft and cancelled invoices do not count toward what is owed. The requirements do not name the sort fields for this screen; due date and outstanding balance are the sensible choices. Overdue rows show days overdue, so the list is ordered for follow-up."
+      },
+      "basis": "[\"Invoices\",\"Lists invoices with search and sort, separating overdue invoices from those not yet due.\",[\"Seller\"],[[\"Seller\",\"search and sort invoices and see what is owed\"]]]",
+      "at": "2026-11-22T12:09:15.441Z"
+    },
+    "/invoices/{}": {
+      "detail": {
+        "purpose": "Shows one invoice with its preview, status and outstanding balance, and is where the seller records advances and payments, drafts and copies reminders, and records follow-ups sent. The seller comes here from an invoice list, a customer, or the collections list to work on a single invoice.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Invoice number, customer name, and the status label (unpaid, partially paid, paid, overdue, draft or cancelled). Buttons: Print, Save as PDF."
+          },
+          {
+            "area": "Balance summary",
+            "contents": "Invoice total, recorded payments total, and outstanding balance (total minus recorded payments), with the same balance figure shown as elsewhere in the app. Shows issue date, due date, and days overdue when an unpaid balance remains after the due date. Shows the expected collection date, or a note that none is set for an overdue invoice."
+          },
+          {
+            "area": "Invoice preview",
+            "contents": "Readable invoice layout: shop details from settings, invoice number, customer name, issue date, due date, item table with description, quantity, unit price and line total, invoice total, optional notes. Buttons: Print, Save as PDF."
+          },
+          {
+            "area": "Payments section",
+            "contents": "List of recorded payments with amount, date and payment method, each labelled as seller-recorded and not bank-verified. Form below to record a payment: amount, date, payment method, and a Record payment button. Type choice for advance, partial payment or final payment."
+          },
+          {
+            "area": "Reminder section",
+            "contents": "Editable reminder draft built from the actual invoice details (customer name, invoice number, outstanding balance, due date, days overdue). Buttons: Copy reminder, Open WhatsApp draft (only when the customer has a phone number). A Record follow-up sent button, with the date of the last follow-up shown beside it."
+          }
+        ],
+        "shows": [
+          {
+            "item": "Invoice header and status",
+            "details": "Invoice number, customer name, status label, issue date, due date, days overdue when applicable."
+          },
+          {
+            "item": "Balance",
+            "details": "Invoice total, recorded payments total, outstanding balance = total minus recorded payments. Overdue shown separately when an unpaid balance remains after the due date."
+          },
+          {
+            "item": "Invoice line items",
+            "details": "Description, quantity, unit price, line total, in the order entered; invoice total below; optional notes."
+          },
+          {
+            "item": "Payment records",
+            "details": "Each payment's amount, date and payment method, labelled seller-recorded, not bank-verified; listed in date order."
+          },
+          {
+            "item": "Expected collection date",
+            "details": "The date set for this invoice's collection, starting at its due date; for overdue invoices with none set, shown as unscheduled."
+          },
+          {
+            "item": "Follow-up history",
+            "details": "Last follow-up sent date, shown with the reminder section."
+          }
+        ],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Preview the invoice and print it or save it as PDF.",
+            "result": "Opens a readable print layout; no record is changed."
+          },
+          {
+            "who": "Everyone",
+            "action": "Record an advance, partial payment or final payment with amount, date and payment method.",
+            "result": "Payment is saved as seller-recorded; outstanding balance and status update here and everywhere else. When the balance reaches zero the invoice shows paid and overdue alerts for it disappear. Invalid amounts, overpayments and duplicate submissions are blocked."
+          },
+          {
+            "who": "Everyone",
+            "action": "Edit the reminder draft.",
+            "result": "Draft text changes on this screen only; no record is changed and nothing is sent."
+          },
+          {
+            "who": "Everyone",
+            "action": "Copy the reminder.",
+            "result": "Reminder text is copied to the clipboard for the seller to paste; it is not marked as sent."
+          },
+          {
+            "who": "Everyone",
+            "action": "Open a WhatsApp draft (customer has a phone number).",
+            "result": "A WhatsApp draft opens with the reminder text; the seller reviews and sends it themselves; it is not marked as sent."
+          },
+          {
+            "who": "Everyone",
+            "action": "Record a follow-up sent.",
+            "result": "A follow-up entry is saved with the date; the last-follow-up entry on the collections list and on this screen updates."
+          }
+        ],
+        "links": [
+          {
+            "to": "/customers/[id]",
+            "label": "Customer name",
+            "when": "To see the customer's other invoices, payment history and balance."
+          },
+          {
+            "to": "/collections",
+            "label": "Back to collections",
+            "when": "When the invoice was opened from the collections list."
+          },
+          {
+            "to": "/invoices",
+            "label": "Back to invoices",
+            "when": "When the invoice was opened from the invoices list."
+          }
+        ],
+        "states": {
+          "empty": "No payments recorded yet: payments section shows a short message and the payment form is ready.",
+          "loading": "Shows a loading indicator while the invoice, payments and preview load.",
+          "error": "Shows a clear error message if the invoice cannot be loaded or a payment or follow-up cannot be saved, and keeps the entered values."
+        },
+        "notes": "Payments may not exceed the outstanding balance; amounts must be valid positive values; a duplicate payment submission must be blocked. Drafts and cancelled invoices are kept out of receivables and forecasts. Creating an invoice does not increase cash; delivery does not mean payment. Opening or copying a reminder does not mark it as sent. Reminders use actual invoice details only. Amounts in Indian rupee format; dates in Asia/Kolkata. Private records visible only to the signed-in seller. Must work on a mobile-sized screen. Show a clear success or error message after recording a payment or foll"
+      },
+      "basis": "[\"Invoice Detail\",\"Shows one invoice with its preview, status and balance, where payments are recorded and reminders are drafted.\",[\"Seller\"],[[\"Seller\",\"preview and print, record advances and payments, draft and copy reminders, record follow-ups sent\"]]]",
+      "at": "2026-11-22T12:09:19.106Z"
+    },
+    "/invoices/new": {
+      "detail": {
+        "purpose": "Lets the seller create an itemised invoice for an existing or new customer, reusing saved customers and item details. The seller uses it each time an order is agreed or delivered and needs a bill sent.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Heading 'New invoice'. Cancel button that returns without saving. Save invoice button."
+          },
+          {
+            "area": "Customer section",
+            "contents": "Customer picker that searches saved customers by name, with a 'Add new customer' option. Shows the selected customer's name and phone or email if saved."
+          },
+          {
+            "area": "Invoice details",
+            "contents": "Unique invoice number field, issue date field, payment due date field."
+          },
+          {
+            "area": "Items table",
+            "contents": "One row per item with item description (choose a saved item detail or type a new one), quantity, unit price and calculated line total. Item types offered are printed T-shirts, crochet gifts and delivery charges. Add item and remove item controls on each row."
+          },
+          {
+            "area": "Totals and notes",
+            "contents": "Calculated invoice total in rupees, updated as rows change. Optional notes field."
+          }
+        ],
+        "shows": [
+          {
+            "item": "Saved customers",
+            "details": "Customer names available to pick, searchable by name, so an existing customer can be reused."
+          },
+          {
+            "item": "Saved item details",
+            "details": "Previously saved item descriptions and unit prices offered to fill an item row."
+          },
+          {
+            "item": "Line totals",
+            "details": "Each row shows quantity times unit price, calculated automatically in Indian rupee format."
+          },
+          {
+            "item": "Invoice total",
+            "details": "Sum of all line totals, calculated automatically in Indian rupee format. Shown as the amount owed before any payments."
+          }
+        ],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Picks an existing customer or adds a new customer, enters invoice number, issue date and due date.",
+            "result": "The customer and dates are set on the invoice form."
+          },
+          {
+            "who": "Everyone",
+            "action": "Adds item rows, choosing saved item details or typing new ones, and enters quantity and unit price for each.",
+            "result": "Line totals and the invoice total recalculate automatically."
+          },
+          {
+            "who": "Everyone",
+            "action": "Adds optional notes and saves the invoice.",
+            "result": "The invoice is saved with its items, total and an outstanding balance equal to the total, and the seller goes to its Invoice Detail page. Saving does not increase cash."
+          },
+          {
+            "who": "Everyone",
+            "action": "Cancels the form.",
+            "result": "Nothing is saved and the seller returns to the Invoices list."
+          }
+        ],
+        "links": [
+          {
+            "to": "/customers/new",
+            "label": "Add new customer",
+            "when": "The customer is not yet saved and must be added before the invoice is created."
+          },
+          {
+            "to": "/invoices/[id]",
+            "label": "Save invoice",
+            "when": "After a valid invoice is saved, the seller goes to its detail page to record payments or send reminders later."
+          },
+          {
+            "to": "/invoices",
+            "label": "Cancel",
+            "when": "The seller abandons the new invoice and returns to the invoice list without saving."
+          }
+        ],
+        "states": {
+          "empty": "No saved customers yet: the customer picker shows only the Add new customer option. No saved item details yet: the item row accepts typed descriptions.",
+          "loading": "Saved customers and item details load before the picker and suggestions are shown.",
+          "error": "Invalid amounts, a duplicate invoice number or a missing customer or date block saving and show a message beside the field. A failed save keeps the entered values."
+        },
+        "notes": "Invoice number must be unique. Amounts must be valid numbers and no overpayment rules apply yet since no payments are recorded at creation. Prevent duplicate submissions when Save is pressed more than once. Creating an invoice does not increase cash. Delivery charges are added as items, and delivery does not mean payment. Only the seller can use this screen."
+      },
+      "basis": "[\"New Invoice\",\"Lets the seller create an itemised invoice for an existing or new customer, reusing saved item details.\",[\"Seller\"],[[\"Seller\",\"create an itemised invoice from saved customers and item details\"]]]",
+      "at": "2026-11-22T12:09:29.290Z"
+    },
+    "/collections": {
+      "detail": {
+        "purpose": "Lets the seller work through outstanding invoices, starting with the most overdue and largest balances, and act on each one by drafting a reminder or recording a follow-up. Only the seller uses this screen.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Heading 'Collections' with a line saying outstanding invoices are ordered by overdue amount and days overdue."
+          },
+          {
+            "area": "Search and sort bar",
+            "contents": "Search field (by customer or invoice number) and a sort control offering outstanding amount and days overdue."
+          },
+          {
+            "area": "Overdue invoices list",
+            "contents": "Table or cards of overdue invoices, each row showing customer, invoice number, outstanding amount, due date, days overdue, last follow-up, and row actions: Draft reminder, Copy reminder, Open WhatsApp draft (only if the customer has a phone number), Record follow-up sent, and Set expected date when none is set."
+          },
+          {
+            "area": "Not yet due list",
+            "contents": "Separate section below the overdue list for unpaid invoices not yet past due, showing customer, invoice number, outstanding amount and due date."
+          },
+          {
+            "area": "Unscheduled marker",
+            "contents": "Overdue invoices without an expected collection date carry a visible 'No expected date' label with a Set expected date action."
+          }
+        ],
+        "shows": [
+          {
+            "item": "Overdue invoices",
+            "details": "Customer, invoice number, outstanding amount (invoice total minus recorded payments), due date, days overdue (Asia/Kolkata), last follow-up entry. Ordered by outstanding amount and days overdue, switchable via sort."
+          },
+          {
+            "item": "Not yet due invoices",
+            "details": "Customer, invoice number, outstanding amount, due date. Kept apart from overdue invoices."
+          },
+          {
+            "item": "Last follow-up",
+            "details": "Date of the most recent recorded follow-up for each invoice; updates when a follow-up is recorded."
+          }
+        ],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Search the list or change the sort order by outstanding amount or days overdue",
+            "result": "The list updates to show matching invoices in the chosen order."
+          },
+          {
+            "who": "Everyone",
+            "action": "Draft a reminder for an overdue invoice",
+            "result": "An editable reminder with the actual invoice details opens on the invoice's detail screen."
+          },
+          {
+            "who": "Everyone",
+            "action": "Copy a reminder or open a WhatsApp draft (customer has a phone number)",
+            "result": "The reminder is copied or a WhatsApp draft opens; the seller reviews and sends it themselves. Nothing is marked as sent."
+          },
+          {
+            "who": "Everyone",
+            "action": "Record a follow-up sent",
+            "result": "A follow-up entry is saved and the invoice's last-follow-up column updates."
+          },
+          {
+            "who": "Everyone",
+            "action": "Set or request an expected collection date for an overdue invoice",
+            "result": "The date is saved; the invoice moves from unscheduled into the dated forecast. Starts at the due date until changed."
+          }
+        ],
+        "links": [
+          {
+            "to": "/invoices/[id]",
+            "label": "Invoice number",
+            "when": "To view the invoice, its payments and its status."
+          },
+          {
+            "to": "/customers/[id]",
+            "label": "Customer name",
+            "when": "To see the customer's invoices, payment history and total balance."
+          }
+        ],
+        "states": {
+          "empty": "No outstanding invoices: a message that there are no overdue or upcoming balances to follow up.",
+          "loading": "Skeleton rows while invoices and follow-up history load.",
+          "error": "A message that the collections list could not load, with a retry option."
+        },
+        "notes": "Only unpaid invoices with a balance remaining are listed; draft, cancelled and fully paid invoices are excluded. Overdue means a balance remains after the due date in Asia/Kolkata. Opening or copying a reminder does not mark it as sent; only Record follow-up sent does. Reminders are never sent automatically. Outstanding amounts match those on every other screen."
+      },
+      "basis": "[\"Collections\",\"Lists outstanding invoices searched and sorted by overdue amount and days overdue, with reminder and follow-up actions.\",[\"Seller\"],[[\"Seller\",\"work overdue invoices by amount and days overdue, set expected collection dates, draft reminders\"]]]",
+      "at": "2026-11-22T12:09:35.608Z"
+    },
+    "/expenses": {
+      "detail": {
+        "purpose": "Lets the seller review upcoming and overdue bills grouped by category and ordered by due date, so they can see which supplier and running costs are coming and which are already late. Only the seller uses this screen.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Heading 'Expenses' with a line saying these are upcoming bills by category and due date. A 'New bill' button opens the New Expense form."
+          },
+          {
+            "area": "Overdue bills",
+            "contents": "Heading 'Overdue' with a count of unpaid bills past their due date. Each row shows description, category, amount in ₹ and due date, with a clear overdue flag. A note says overdue unpaid bills count as outflows today in the cash forecast until a revised date is set."
+          },
+          {
+            "area": "Upcoming bills",
+            "contents": "Heading 'Upcoming' listing unpaid bills not yet due. Bills are grouped by category (blank T-shirts, printing, yarn, packaging, delivery, other) and ordered by due date within each group. Each row shows description, amount in ₹ and due date."
+          },
+          {
+            "area": "Empty prompt",
+            "contents": "Shown only when there are no bills. A short message with a 'New bill' button."
+          }
+        ],
+        "shows": [
+          {
+            "item": "Overdue unpaid bills",
+            "details": "Description, category, amount (₹), due date, overdue flag. Listed first and flagged for immediate attention."
+          },
+          {
+            "item": "Upcoming unpaid bills",
+            "details": "Description, category, amount (₹), due date. Grouped by category, ordered by due date within each group."
+          },
+          {
+            "item": "Overdue count",
+            "details": "Number of unpaid bills past their due date, shown in the Overdue heading."
+          }
+        ],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Reviews upcoming and overdue bills by category and due date.",
+            "result": "Nothing changes; the seller sees what is coming and what is late."
+          },
+          {
+            "who": "Everyone",
+            "action": "Opens a bill from its row.",
+            "result": "Opens that bill's detail page to edit it or record that it is paid."
+          },
+          {
+            "who": "Everyone",
+            "action": "Clicks 'New bill'.",
+            "result": "Opens the New Expense form to add an upcoming bill."
+          }
+        ],
+        "links": [
+          {
+            "to": "/expenses/new",
+            "label": "New bill",
+            "when": "When the seller needs to add a new upcoming bill."
+          },
+          {
+            "to": "/expenses/[id]",
+            "label": "Bill row",
+            "when": "When the seller wants to view or edit a bill or record that it is paid."
+          },
+          {
+            "to": "/cash-forecast",
+            "label": "See in forecast",
+            "when": "When the seller wants to check how overdue or upcoming bills affect the 30-, 60- and 90-day cash projections."
+          }
+        ],
+        "states": {
+          "empty": "No bills yet: a short message and a 'New bill' button.",
+          "loading": "Skeleton rows for the Overdue and Upcoming sections while bills load.",
+          "error": "A message that bills could not be loaded, with a retry option."
+        },
+        "notes": "Due dates and overdue status use the Asia/Kolkata calendar. Amounts use Indian rupee formatting. Bill categories are blank T-shirts, printing, yarn, packaging, delivery and other. Overdue unpaid bills are treated as outflows today in the forecast until the seller sets a revised expected payment date, and this assumption must be disclosed on the screen. Paid bills must not be counted again as future outflows. The list is private to the seller's account."
+      },
+      "basis": "[\"Expenses\",\"Lists upcoming bills by category and due date and shows which are overdue.\",[\"Seller\"],[[\"Seller\",\"review upcoming and overdue bills by category and due date\"]]]",
+      "at": "2026-11-22T12:09:42.921Z"
+    },
+    "/expenses/{}": {
+      "detail": {
+        "purpose": "Shows one upcoming bill with its details so the seller can check, edit or correct it, and record when it has been paid. The seller comes here from the Expenses list or a bill alert to review a supplier bill.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Bill description as the heading, with a status label (Upcoming, Overdue or Paid) and a Back to expenses link."
+          },
+          {
+            "area": "Bill details",
+            "contents": "Read-only summary of description, category (blank T-shirts, printing, yarn, packaging, delivery or other), amount in ₹, due date, and days overdue when the bill is unpaid and past due. For a paid bill, shows the date paid."
+          },
+          {
+            "area": "Overdue flag",
+            "contents": "When an unpaid bill is past its due date, a prominent message saying it needs immediate attention and is treated as an outflow today in the forecast until a revised expected payment date is set."
+          },
+          {
+            "area": "Edit bill form",
+            "contents": "Fields for description, category (dropdown of the six categories), amount in ₹ and due date, pre-filled with the saved values, with a Save changes button and a Cancel button."
+          },
+          {
+            "area": "Mark as paid section",
+            "contents": "A date field for the date paid and a Mark as paid button. Hidden or shown as a confirmed 'Paid on [date]' label once the bill is paid."
+          }
+        ],
+        "shows": [
+          {
+            "item": "Bill record",
+            "details": "Description, category, amount (₹, Indian rupee format), due date (Asia/Kolkata), status, days overdue for unpaid past-due bills, and date paid once paid."
+          },
+          {
+            "item": "Forecast treatment",
+            "details": "Short explanation of how this bill is counted: unpaid upcoming bills are outflows on their due date; overdue unpaid bills are outflows today until a revised date is set; paid bills are not counted again."
+          }
+        ],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Edits the description, category, amount or due date and saves changes",
+            "result": "Bill is saved with the new values, status and days overdue update, and the forecast uses the updated bill."
+          },
+          {
+            "who": "Everyone",
+            "action": "Enters the date paid and clicks Mark as paid",
+            "result": "Bill status becomes Paid, the overdue flag clears, and the bill is no longer counted as a future outflow in forecasts."
+          }
+        ],
+        "links": [
+          {
+            "to": "/expenses",
+            "label": "Back to expenses",
+            "when": "Seller wants to return to the list of upcoming bills after viewing or saving this bill."
+          }
+        ],
+        "states": {
+          "empty": "If the bill does not exist, shows a 'Bill not found' message with a link back to the expenses list.",
+          "loading": "Shows a loading indicator in place of the bill details and form until the bill is fetched.",
+          "error": "If saving or marking as paid fails, shows an error message and keeps the entered values so the seller can retry."
+        },
+        "notes": "Amount and due date must be valid; an invalid amount cannot be saved. Paid bills must not be counted again as future transactions. Changes to a bill do not change any other record. Dates use the Asia/Kolkata calendar. Works on a mobile-sized screen."
+      },
+      "basis": "[\"Expense Detail\",\"Shows one bill with its details, where it can be edited and marked as paid.\",[\"Seller\"],[[\"Seller\",\"edit a bill and record when it is paid\"]]]",
+      "at": "2026-11-22T12:09:49.129Z"
+    },
+    "/expenses/new": {
+      "detail": {
+        "purpose": "Lets the seller add an upcoming bill with a description, category, amount and due date so it appears in Expenses and in the cash forecast. Only the seller uses this screen.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Heading 'New expense' with a short line saying the bill will be added to upcoming bills."
+          },
+          {
+            "area": "Bill form",
+            "contents": "Description (text), Category (dropdown: Blank T-shirts, Printing, Yarn, Packaging, Delivery, Other), Amount in ₹ (number), Due date (date picker, Asia/Kolkata). Each field shows its own error text beside it."
+          },
+          {
+            "area": "Form actions",
+            "contents": "A 'Save bill' button. A form-level message area above the button for save errors."
+          }
+        ],
+        "shows": [
+          {
+            "item": "Bill being entered",
+            "details": "Fields in this order: description, category, amount (₹), due date. Amount is shown in Indian rupee format as it is typed. No existing records are listed on this screen."
+          }
+        ],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Enters description, picks a category, enters amount and picks due date, then taps 'Save bill'.",
+            "result": "The bill is saved as unpaid, the seller is taken to the Expenses list, and the bill appears in upcoming bills. If the due date has already passed, the bill shows as overdue and is flagged for immediate attention."
+          },
+          {
+            "who": "Everyone",
+            "action": "Taps 'Save bill' with an invalid or missing field.",
+            "result": "Nothing is saved. The invalid field is named with its error and the entered values stay in the form."
+          },
+          {
+            "who": "Everyone",
+            "action": "Taps 'Save bill' again while a save is in progress.",
+            "result": "The second submission is ignored, so the same bill is not saved twice."
+          }
+        ],
+        "links": [
+          {
+            "to": "/expenses",
+            "label": "Saved bill (Expenses list)",
+            "when": "After a successful save, the seller returns to the Expenses list where the new bill appears."
+          }
+        ],
+        "states": {
+          "empty": "A blank form with no fields filled in and no default values.",
+          "loading": "While saving, the 'Save bill' button is disabled and shows progress.",
+          "error": "A field-level message names the invalid or missing field; a save failure shows a form-level message and keeps the entered values."
+        },
+        "notes": "Category must be one of: blank T-shirts, printing, yarn, packaging, delivery, other. Amount must be a valid positive rupee amount; invalid amounts are rejected. Due date uses the Asia/Kolkata calendar. Unpaid bills count as planned outflows in the cash forecast until marked paid. Paid bills are not counted again. Duplicate submissions are prevented."
+      },
+      "basis": "[\"New Expense\",\"Lets the seller add an upcoming bill with description, category, amount and due date.\",[\"Seller\"],[[\"Seller\",\"add a bill with description, category, amount and due date\"]]]",
+      "at": "2026-11-22T12:09:56.551Z"
+    },
+    "/settings": {
+      "detail": {
+        "purpose": "Lets the seller set the shop details and the opening cash balance with its effective date, which the cash forecast and available cash are built on. Only the seller uses this screen.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Heading \"Settings\" and a short line saying shop details and the opening cash balance are saved here."
+          },
+          {
+            "area": "Shop details form",
+            "contents": "Fields for shop name and other shop details the requirements name (shop details). Save button labelled \"Save shop details\"."
+          },
+          {
+            "area": "Opening cash balance form",
+            "contents": "Amount field in Indian rupees for the opening cash balance, and a date field labelled \"Effective date\". Helper text: transactions dated before or on this date are already included in the balance and are not counted again. Save button labelled \"Save opening balance\"."
+          },
+          {
+            "area": "Current opening balance summary",
+            "contents": "Shows the saved opening cash balance, its effective date, and when it was last saved."
+          }
+        ],
+        "shows": [
+          {
+            "item": "Shop details",
+            "details": "Shop name and the other shop details entered by the seller, shown in editable fields."
+          },
+          {
+            "item": "Opening cash balance",
+            "details": "Current amount in rupees and its effective date."
+          }
+        ],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Edit and save shop details",
+            "result": "Shop details are saved and shown on this screen."
+          },
+          {
+            "who": "Everyone",
+            "action": "Set the opening cash balance and its effective date",
+            "result": "The opening balance is saved; available cash is calculated from it plus later actual receipts and payments, and transactions on or before the effective date are not counted again."
+          }
+        ],
+        "links": [],
+        "states": {
+          "empty": "No opening balance set yet: show prompt to enter an opening cash balance and effective date.",
+          "loading": "Show a loading indicator while saved settings are fetched.",
+          "error": "Show an error message beside the form and keep the entered values if saving fails."
+        },
+        "notes": "Amounts must be valid rupee amounts; the effective date is required with the opening balance. Changing the opening balance does not change any invoice, payment or bill records. Dates use the Asia/Kolkata calendar. Only the seller can see or change these settings."
+      },
+      "basis": "[\"Settings\",\"Lets the seller set shop details and the opening cash balance with its effective date.\",[\"Seller\"],[[\"Seller\",\"set shop details and the opening cash balance\"]]]",
+      "at": "2026-11-22T12:10:03.987Z"
+    },
+    "/cash-forecast": {
+      "detail": {
+        "purpose": "Shows the seller whether cash will last over the next 30, 60 and 90 days, based on available cash, expected invoice collections and upcoming unpaid bills. The seller also sets expected collection dates here and tests a what-if delay on one invoice against the baseline.",
+        "layout": [
+          {
+            "area": "Page header",
+            "contents": "Heading 'Cash Forecast'. A short line saying forecasts are estimates from entered records. A period selector with 30, 60 and 90 days, defaulting to 30."
+          },
+          {
+            "area": "Forecast summary",
+            "contents": "Current available cash (opening balance plus later actual receipts minus payments, labelled as based on entered records). Expected collections in the selected period. Unpaid bills in the period. Projected balance at the end of the period. First projected shortage date and amount, or 'No shortage projected' when none. Shortage shown prominently."
+          },
+          {
+            "area": "Cash chart",
+            "contents": "A line or bar chart of projected cash balance by day across the selected period, with a baseline line. When a what-if scenario is active, a second line shows the scenario on the same axes. The first shortage point is marked."
+          },
+          {
+            "area": "Breakdown table",
+            "contents": "Dated rows in order: starting available cash, each expected invoice collection (invoice number, customer, outstanding amount, expected collection date), each upcoming unpaid bill (description, category, amount, due date), and running balance after each row. Overdue unpaid bills are listed first with an 'Overdue – treated as outflow today' flag. Invoices with a collection date beyond the selected period are not counted in it."
+          },
+          {
+            "area": "Unscheduled overdue invoices",
+            "contents": "Section titled 'Overdue, no expected date'. Lists overdue invoices with outstanding balance and days overdue, each with an expected collection date field. Shows they are excluded from the dated forecast until a date is set. Count shown in the heading."
+          },
+          {
+            "area": "Assumptions and what-if panel",
+            "contents": "Assumptions list: expected collections start at each invoice's due date and use only its outstanding balance; draft and cancelled invoices and paid invoices or bills are excluded; overdue unpaid bills count as outflows today until a revised date is set; opening cash balance and its effective date. A note that expected collections are estimates. What-if controls: invoice selector, delay in days (editable, default 15), 'Run scenario' button and 'Reset to baseline' button. Comparison showing baseli"
+          }
+        ],
+        "shows": [
+          {
+            "item": "Available cash",
+            "details": "Opening cash balance with its effective date, plus later actual receipts, minus later actual payments; labelled as based on entered records."
+          },
+          {
+            "item": "Expected invoice collections",
+            "details": "Each outstanding invoice with a collection date in the period: invoice number, customer, outstanding balance (total minus recorded payments), expected collection date. Starts at due date until edited."
+          },
+          {
+            "item": "Upcoming unpaid bills",
+            "details": "Unpaid bills with description, category (blank T-shirts, printing, yarn, packaging, delivery, other), amount and due date. Overdue unpaid bills flagged for immediate attention."
+          },
+          {
+            "item": "Daily projected balance",
+            "details": "Running balance by day across the selected period; totals for collections, bills and ending balance."
+          },
+          {
+            "item": "First projected shortage",
+            "details": "Date and amount of the first day the projected balance goes below zero, for baseline and, when run, for scenario."
+          },
+          {
+            "item": "Scenario comparison",
+            "details": "Baseline and scenario side by side: minimum cash, shortage date and amount, and balance after the affected collection's new date."
+          },
+          {
+            "item": "Overdue invoices without expected date",
+            "details": "Customer, invoice number, outstanding balance, days overdue, and an expected date field."
+          }
+        ],
+        "actions": [
+          {
+            "who": "Everyone",
+            "action": "Change the period between 30, 60 and 90 days",
+            "result": "Chart, breakdown and totals update for that period; collections dated beyond it are not counted."
+          },
+          {
+            "who": "Everyone",
+            "action": "Edit an outstanding invoice's expected collection date",
+            "result": "The date is saved to the invoice and the forecast recalculates; the invoice's due date and payment records are not changed."
+          },
+          {
+            "who": "Everyone",
+            "action": "Set an expected collection date for an overdue invoice without one",
+            "result": "The invoice moves from the unscheduled section into the dated breakdown and the 'overdue without expected date' alert clears."
+          },
+          {
+            "who": "Everyone",
+            "action": "Select an invoice, enter a delay in days (default 15) and run the scenario",
+            "result": "Scenario line and comparison appear beside the baseline; the delayed collection moves in the scenario only and no saved record changes."
+          },
+          {
+            "who": "Everyone",
+            "action": "Reset the what-if scenario",
+            "result": "Scenario is cleared and the baseline is shown again; saved invoices, payments and bills are unchanged."
+          }
+        ],
+        "links": [
+          {
+            "to": "/invoices/[id]",
+            "label": "Invoice number or customer on a collection row",
+            "when": "Seller opens the invoice to review its balance, record a payment or draft a reminder."
+          },
+          {
+            "to": "/expenses/[id]",
+            "label": "Bill description on a breakdown row",
+            "when": "Seller reviews an overdue or upcoming bill, edits it or marks it paid."
+          },
+          {
+            "to": "/expenses",
+            "label": "View all bills",
+            "when": "Seller wants the full bill list behind a shortage or overdue flag."
+          },
+          {
+            "to": "/invoices",
+            "label": "View all invoices",
+            "when": "Seller wants to review overdue invoices before setting expected dates."
+          },
+          {
+            "to": "/settings",
+            "label": "Opening cash balance",
+            "when": "Seller needs to correct the opening balance or its effective date that drives available cash."
+          },
+          {
+            "to": "/collections",
+            "label": "Review collections",
+            "when": "A projected shortage alert points to the affected collections to chase."
+          }
+        ],
+        "states": {
+          "empty": "No invoices or bills in the period: breakdown shows only starting available cash and a line saying no collections or bills are scheduled.",
+          "loading": "Skeleton chart and breakdown rows while forecast figures are calculated.",
+          "error": "Message that the forecast could not be calculated, with a retry button; saved records are unchanged."
+        },
+        "notes": "Amounts in Indian rupee format; dates on Asia/Kolkata calendar. Only outstanding balance (total minus recorded payments) is used for collections; draft and cancelled invoices are excluded. Paid invoices and paid bills are not counted again as future transactions. Overdue unpaid bills are treated as outflows today until the seller explicitly sets a revised date, and this assumption is disclosed on the screen. Projected shortage alerts link to review of affected collections and bills. Overdue invoices without an expected date stay out of the dated forecast. Scenarios are not saved as business re"
+      },
+      "basis": "[\"Cash Forecast\",\"Shows 30-, 60- and 90-day cash projections with a chart, breakdown, first shortage and a what-if delay against baseline.\",[\"Seller\"],[[\"Seller\",\"review forecasts, set expected collection dates, run or reset a what-if delay\"]]]",
+      "at": "2026-11-22T12:10:05.588Z"
+    }
+  }
+}
